@@ -1,0 +1,11 @@
+[filter "lfs"]
+	required = true
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	clean = git-lfs clean -- %f
+[user]
+	name = shiro105
+	email = shiro105@mail.chapman.edu
+[core]
+	editor = vim
+
