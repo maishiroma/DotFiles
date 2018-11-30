@@ -1,7 +1,6 @@
 # Git Configs
-This directory contains all of my personal .git config files, so that it is easy for me to reference these anywhere.
+Documentation on what I am including in this repo for Git files
 
-## Contents
 1) `gitconfig <specific>`
   - Depending on what workstation I am on, the `.gitconfig` that I should use will vary. This logic will be handled in my `bootstrap.sh` script.
 2) `gitignore`
