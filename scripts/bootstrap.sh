@@ -22,7 +22,7 @@ if hash brew 2>/dev/null; then
   echo "brew is installed!"
 else
   echo "brew is NOT installed! Please install brew!"
-  echo "Run: <ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" to install brew."
+  echo "Run: <ruby -e \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\" to install brew."
   exit 127
 fi
 
@@ -39,7 +39,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
   echo "Oh My zsh is installed!"
 else
   echo "Oh My zsh is not installed!"
-  echo "To install, run: <sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"> "
+  echo "To install, run: <sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"> "
   exit 127
 fi
 
@@ -50,10 +50,10 @@ echo "1) Personal"
 echo "2) Work"
 read userInput
 
-if userInput -eq 2 then
-  cp $HOME/DotFiles/gitConfigs/gitconfig_work $HOME/DotFiles/gitconfig
+if [ $userInput -eq 2 ]; then
+  cp ../gitConfigs/gitconfig_work ../gitconfig
 else
-  cp $HOME/DotFiles/gitConfigs/gitconfig_personal $HOME/DotFiles/gitconfig
+  cp ../gitConfigs/gitconfig_personal ../gitconfig
 fi
 
 # Install pathogen
