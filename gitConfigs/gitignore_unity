@@ -74,7 +74,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Unity Stuff
-# [Ll]ibrary/
+[Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
