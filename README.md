@@ -5,7 +5,8 @@ This repo will contain all of the configs that I will have for my personal setup
 
 ## Table of Contents
 1) How to Install
-2) How to Update
+2) Post Install
+3) How to Update
 
 ## How to Install
 1) Clone this repo down:
@@ -18,6 +19,10 @@ cd DotFiles/scripts
 ./<nameOfBootstrapScript>
 ```
 > NOTE: If you don't want to use a dot file manager, run the `manual_bootstrap.sh` script instead. This only installs the bare minimum on your system.
+
+## Post-Install
+(This is optional, but if you do not do this, you WILL need to remove all of the lines below `Vim Plugins` in the `.vimrc` file)
+1) Navigate to the [README](https://github.com/shiro105/DotFiles/tree/master/scripts/README.md) in the `scripts` directory and follow the instructions on there.
 
 ## How to Update
 1) Simply run `rcup` once you have ran through the initial installment. 
