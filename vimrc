@@ -15,6 +15,14 @@ set softtabstop=2
 set backup
 set noswapfile
 set noundofile
+
+" Word Wrapping
+set wrap
+set linebreak
+set nolist  " list disables linebreak
+set textwidth=0
+set wrapmargin=0
+set formatoptions-=t
 set backupdir=~/.vim/backup
 
 execute pathogen#infect()
