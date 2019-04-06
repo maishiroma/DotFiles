@@ -102,6 +102,9 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 mkdir -p ~/.vim/colors
 curl -LSso ~/.vim/colors/iceberg.vim https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim
 
+# Set up the backup directory
+mkdir ~/.vim/backup
+
 # Installs RCM, a dotfile manager: https://github.com/thoughtbot/rcm
 brew tap thoughtbot/formulae
 brew install rcm
@@ -109,4 +112,7 @@ brew install rcm
 # Installs all of the dotfiles using RCM: https://github.com/thoughtbot/dotfiles
 env RCRC=../rcrc rcup
 
-echo "Installation complete! Please run a new terminal session to get the new changes."
+# Makes sure we fix the .zshrc to have our username in it
+sed -i 's/username/$USER/g' ~/.zshrc
+
+echo "Script finished! To complete the installation, please refer to the README in the scripts directory."

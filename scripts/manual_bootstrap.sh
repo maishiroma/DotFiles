@@ -73,7 +73,8 @@ if [ $userData = "yes" ]; then
     else
       echo ".vim folder not found in $HOME. Now configuring system to have .vim directory..."
       mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-      mkdir -p ~/.vim/colors
+      mkdir -p ~/.vim/colors && \
+      mkdir -p ~/.vim/backup
 
       curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
       echo "Successfully added pathogen!"
@@ -96,8 +97,11 @@ if [ $userData = "yes" ]; then
     cp ../zshrc $HOME/.zshrc
     echo "Successfully added .zshrc!"
     
+    # Makes sure we fix the .zshrc to have our username in it
+    sed -i 's/username/$USER/g' ~/.zshrc
+
     echo
-    echo "COMPLETED! You are now me now! :)"
+    echo "Script finished! To complete the installation, please refer to the README in the scripts directory"
   fi
 else
   echo "Exiting script from user input..."

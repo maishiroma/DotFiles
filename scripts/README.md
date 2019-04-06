@@ -1,10 +1,23 @@
 # Scripts
-
 This folder contains bash scripts used to easily configure vim and any other terminal features that I have customized.
 
-## How To Use
-Refer to the main [Readme](https://github.com/shiro105/DotFiles/blob/master/README.md) on how to install this
+## Post-Install Actions
+This section highlights all of the extra steps needed in order to completly finish the dotfile installation.
 
-## Post-Install
-> Will be expanded as this repo grows
-- Install [Vim Markdown Preview](https://github.com/JamshedVesuna/vim-markdown-preview)
+#### Required
+- Install [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+  - Use the `Oh-My-Zsh` installation:
+    - Clone the repo into `~/.oh-my-zsh/custom/plugins`
+    - Add `plugins=(zsh-autosuggestions)` to the `~/.zshrc` file
+- Install [autoclose plugin](https://www.vim.org/scripts/script.php?script_id=1849)
+  - Put the vim file from this into the `~/.vim/plugin` folder.
+  - NOTE: If using the `vim_bootstrap`, this is already installed!
+- Install [grip](https://github.com/joeyespo/grip)
+  - Use `brew install grip`
+- Install [vim markdown preview](https://github.com/JamshedVesuna/vim-markdown-preview) 
+  - Clone repository into `~/.vim/bundle`
+
+#### Optional
+- Install [vim terraform](https://github.com/hashivim/vim-terraform) to make vim work well with Terraform.
+  - Clone repo into `~/.vim/bundle`
+
