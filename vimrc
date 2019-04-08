@@ -15,6 +15,7 @@ set softtabstop=2
 set backup
 set noswapfile
 set noundofile
+set backspace=indent,eol,start
 
 " Word Wrapping
 set wrap
@@ -25,10 +26,19 @@ set wrapmargin=0
 set formatoptions-=t
 set backupdir=~/.vim/backup
 
+"Remappinh Arrow keys for usage in insert
+inoremap <Esc>A <up>
+inoremap <Esc>B <down>
+inoremap <Esc>C <right>
+inoremap <Esc>D <left>
+
 execute pathogen#infect()
 
-" Vim Plugins
+""" Vim Plugins 
 
 " Vim Markdown Plugin
 let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Firefox'
+
+" Vim Terraform
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1

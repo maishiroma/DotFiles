@@ -3,18 +3,26 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Setting PATH for Python 2.7
 # The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-export PATH
+export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
 # MySQL Setup
 export PATH=/usr/local/mysql/bin:$PATH
 
 # Setting PATH for Python 3.6
 # The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH
+export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/mshiroma/plugins/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mshiroma/plugins/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/mshiroma/plugins/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mshiroma/plugins/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Stow Path on Work MacBook
+export PATH=/Users/mshiroma/bin:$PATH
+
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/username/.oh-my-zsh"
+export ZSH="/Users/mshiroma/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -76,6 +84,7 @@ ZSH_THEME="kolo"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -108,3 +117,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias tmux="TERM=screen-256color-bce tmux"
+

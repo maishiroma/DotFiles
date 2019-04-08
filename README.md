@@ -5,26 +5,59 @@ This repo will contain all of the configs that I will have for my personal setup
 
 ## Table of Contents
 1) How to Install
-2) Post Install
-3) How to Update
+2) How to Update
 
 ## How to Install
-1) Clone this repo down:
+There are three types of scripts that simplify the installation of these files. Each of themhave varying degrees of how much they install.
+
+#### Fully Automated Install
+This installs everything that I use on a brand new computer. Like it is fresh out of the box. To do this, run the following commands in `Terminal`:
 ```
 git clone https://github.com/shiro105/DotFiles.git
-```
-2) Go into the scripts folder and run the bootstrap script specific to your environment.
-```
 cd DotFiles/scripts
-./<nameOfBootstrapScript>
+./bootstrap.sh
 ```
-> NOTE: If you don't want to use a dot file manager, run the `manual_bootstrap.sh` script instead. This only installs the bare minimum on your system.
+> NOTE: This automatically installs and utilizes, [rcm](https://github.com/thoughtbot/rcm) to your computer.
 
-## Post-Install
-(This is optional, but if you do not do this, you WILL need to remove all of the lines below `Vim Plugins` in the `.vimrc` file)
-1) Navigate to the [README](https://github.com/shiro105/DotFiles/tree/master/scripts/README.md) in the `scripts` directory and follow the instructions on there.
+#### Semi Automated Install
+This is for systems that do not want to use `rcm` for installing these files. To do this, run the following commands in `Terminal`:
+```
+git clone https://github.com/shiro105/DotFiles.git
+cd DotFiles/scripts
+./manual_bootstrap.sh
+```
+
+#### Vim Install
+This only installs all of the plugins I use for Vim. Does not touch anything else in the system. To install this, run the following commands in `Terminal`:
+```
+git clone https://github.com/shiro105/DotFiles.git
+cd DotFiles/scripts
+./vim_bootstrap.sh
+```
 
 ## How to Update
-1) Simply run `rcup` once you have ran through the initial installment. 
+Depending on how you installed these files, there's various ways on how you'd update these files whenever this repository changes.
 
-> NOTE: If you used `manual_bootstrap.sh` to install all of the dotfiles, simply pull all new changes from this repo and rerun that script again.
+#### Fully Automated Install
+1) Run the following command in the root directory of this repository:
+```
+git pull origin master
+cd Dotfiles
+rcup
+```
+
+#### Semi Automated Install
+1) Run the following command:
+```
+git pull origin master
+cd DotFiles/scripts
+./manual_bootstrap.sh
+```
+
+#### Vim Install
+1) Run the following command:
+```
+git pull origin master
+cd DotFiles/scripts
+./vim_bootstrap.sh
+```

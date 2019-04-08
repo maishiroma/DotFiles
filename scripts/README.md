@@ -18,6 +18,10 @@ This section highlights all of the extra steps needed in order to completly fini
   - Clone repository into `~/.vim/bundle`
 
 #### Optional
+- Install [tmux](https://github.com/tmux/tmux) if you want to do some cool multiplexing action
+  - Follow Wiki in how to install this.
+  - If you do install tmux, you will also need to do the following:
+    - Install [tmux Plugin Manager](https://github.com/tmux-plugins/tpm)
 - Install [vim terraform](https://github.com/hashivim/vim-terraform) to make vim work well with Terraform.
   - Clone repo into `~/.vim/bundle`
 
