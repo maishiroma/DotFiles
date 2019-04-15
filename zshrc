@@ -117,5 +117,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# If you are not using tmux, comment this out
 alias tmux="TERM=screen-256color-bce tmux"
 

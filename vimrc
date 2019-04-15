@@ -1,7 +1,5 @@
 " This is the basic vimrc that I will use for whenever vim is available
-" Horray for vim!
-" Note that in order to use this, we will need to install pathogen
-" as well as get the iceberg theme
+" Note that in order to use this, we will need to install pathogen  as well as get the iceberg theme
 
 syntax on
 filetype plugin indent on
@@ -27,6 +25,7 @@ set formatoptions-=t
 set backupdir=~/.vim/backup
 
 "Remappinh Arrow keys for usage in insert
+" This is used when tmux is installed.
 inoremap <Esc>A <up>
 inoremap <Esc>B <down>
 inoremap <Esc>C <right>
