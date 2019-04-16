@@ -20,6 +20,12 @@ set -g mouse on
 # vi like curser movement in copy mode
 set-window-option -g mode-keys vi
 
+# Binds new panels to their original panel's path
+# And makes new windows bind to the home directory
+bind c new-window -c "$HOME"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
 # Sets the title of the window
 set-option -g set-titles on
 set-option -g set-titles-string "#{session_name} @shiromatty"
