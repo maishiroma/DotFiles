@@ -20,5 +20,9 @@ set -g mouse on
 # vi like curser movement in copy mode
 set-window-option -g mode-keys vi
 
+# Sets the title of the window
+set-option -g set-titles on
+set-option -g set-titles-string "#{session_name} @shiromatty"
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
