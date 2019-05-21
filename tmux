@@ -19,6 +19,9 @@ set -g mouse on
 
 # vi like curser movement in copy mode
 set-window-option -g mode-keys vi
+unbind-key -T copy-mode-vi MouseDragEnd1Pane
+bind-key -T copy-mode-vi MouseDown1Pane select-pane\; send-keys -X clear-selection
+bind -n MouseDrag1Pane if -Ft= '#{mouse_any_flag}' 'if -Ft= \"#{pane_in_mode}\" \"copy-mode -eM\" \"send-keys -M\"' 'copy-mode -eM'
 
 # Binds new panels to their original panel's path
 # And makes new windows bind to the home directory
