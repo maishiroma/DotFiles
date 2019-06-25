@@ -1,0 +1,36 @@
+" This is used specifically for using Vim on Windows
+syntax on
+filetype plugin indent on
+colorscheme iceberg
+
+set autoindent
+set expandtab
+set number
+set shiftwidth=2
+set softtabstop=2
+set backup
+set noswapfile
+set noundofile
+set backspace=indent,eol,start
+
+" Word Wrapping
+set wrap
+set linebreak
+set nolist  " list disables linebreak
+set textwidth=0
+set wrapmargin=0
+set formatoptions-=t
+
+"Backup Directory
+set backupdir=~/vimfiles/backup
+
+"Stop screen from flashing
+set visualbell
+set t_vb=
+
+""" Vim Plugins 
+execute pathogen#infect()
+
+" Vim Terraform
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1

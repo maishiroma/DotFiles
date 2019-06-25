@@ -1,5 +1,6 @@
 # Scripts
 This folder contains bash scripts used to easily configure vim and any other terminal features that I have customized.
+> If you are installing Vim on Windows, there is _no script_ used to install any of this! Refer to the [README](../README.md) here to look at how to do a Windows installation for Vim
 
 ## Post-Install Actions
 This section highlights all of the extra steps needed in order to completly finish the dotfile installation.
