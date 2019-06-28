@@ -121,3 +121,5 @@ source $ZSH/oh-my-zsh.sh
 # If you are not using tmux, comment this out
 alias tmux="TERM=screen-256color-bce tmux"
 
+# Start up commands
+tmux new -A -s work > /dev/null 2>&1
