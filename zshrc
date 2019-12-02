@@ -24,6 +24,9 @@ export PATH=/Users/mshiroma/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/mshiroma/.oh-my-zsh"
 
+# Remove any zcompdumps in home dir
+rm -f /Users/mshiroma/.zcompdump
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -117,9 +120,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# If you are not using tmux, comment this out
 alias tmux="TERM=screen-256color-bce tmux"
+alias 2sandbox="cd /Users/mshiroma/Documents/CompanyProjects/Internal/sandbox/users/ms"
 
 # Start up commands
 tmux new -A -s work > /dev/null 2>&1
