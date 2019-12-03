@@ -122,6 +122,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux="TERM=screen-256color-bce tmux"
 alias 2sandbox="cd /Users/mshiroma/Documents/CompanyProjects/Internal/sandbox/users/ms"
+alias hg="history | grep"
+
+# Functions
+# Allows one to look and search for specific keywords passed into grep
+function sgrep() { grep -Hurn "$@" .; }
 
 # Start up commands
 tmux new -A -s work > /dev/null 2>&1
