@@ -25,4 +25,5 @@ This section highlights all of the extra steps needed in order to completly fini
     - Install [tmux Plugin Manager](https://github.com/tmux-plugins/tpm)
 - Install [vim terraform](https://github.com/hashivim/vim-terraform) to make vim work well with Terraform.
   - Clone repo into `~/.vim/bundle`
-
+- Install [vim smooth scroll](https://github.com/terryma/vim-smooth-scroll) to allow for customized scrolling in Vim
+  - Clone repo into `~/.vim/autoload/`

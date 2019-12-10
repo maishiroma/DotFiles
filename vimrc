@@ -1,5 +1,7 @@
 " This is the basic vimrc that I will use for whenever vim is available
-" Note that in order to use this, we will need to install pathogen  as well as get the iceberg theme
+" Horray for vim!
+" Note that in order to use this, we will need to install pathogen
+" as well as get the iceberg theme
 
 syntax on
 filetype plugin indent on
@@ -26,7 +28,6 @@ set formatoptions-=t
 set backupdir=~/.vim/backup
 
 "Remappinh Arrow keys for usage in insert
-" This is used when tmux is installed.
 inoremap <Esc>A <up>
 inoremap <Esc>B <down>
 inoremap <Esc>C <right>
@@ -42,3 +43,7 @@ let vim_markdown_preview_github=1
 " Vim Terraform
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
+
+" Smooth Scrolling
+noremap <silent> <c-k> :call smooth_scroll#up(&scroll, 0, 1)<CR>
+noremap <silent> <c-j> :call smooth_scroll#down(&scroll, 0, 1)<CR>
