@@ -1,14 +1,15 @@
 # This is used to make tmux look nice and pretty
+# Remember, to reload configuration: CTRL+B + I
+
+### List of plugins
 
 # Tmux Plugin Manager
 # Uses https://github.com/tmux-plugins/tpm
-# List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'jimeh/tmux-themepack'
 
-# Theme
-set -g @themepack 'powerline/double/orange'
+# Tmux Theme
+set -g @plugin 'dracula/tmux'
 
 # Other defaults
 # Fixes the issue with the colors in tmux and vim
