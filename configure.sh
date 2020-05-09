@@ -8,7 +8,12 @@
 # Prints out the help function of the script
 usage () {
     cat << EOF
-$(basename "$0") [-h] -- Configures a personal system with maishiroma's dot files
+$(basename "$0") [-h] -- Configures a personal system using maishiroma's dot files.
+
+This script aims to simplify the process of bringing onboard a new system. Currently, there are two available options that can be passed in the -o flag:
+    
+    personal (My personal configs)
+    work     (What my work laptop has for configs)
 
 FLAGS:
     -o:     Specifies which kind of dotfiles to leverage (REQUIRED)
@@ -17,7 +22,7 @@ FLAGS:
 
 EXAMPLE:
     1.) ./configure.sh -o personal
-        Configures a new installation of dot files using the personal directory
+        Configures a new installation of dot files using the personal configs
 
     2.) ./configure.sh -d
         Removes the current installation of dot files on the system
@@ -98,8 +103,8 @@ vim_pre_config () {
     echo
 }
 
-# Installs all packages for vim
-vim_install_pkgs() {
+# Installs all plugins for vim
+vim_install_plugins_themes() {
     echo "Installing Vim plugins and themes..."
 
     if [ -f "~/.vim/autoload/pathogen.vim" ]; then
@@ -120,7 +125,39 @@ vim_install_pkgs() {
         curl -LSso ~/.vim/plugin/autoclose.vim https://www.vim.org/scripts/download_script.php?src_id=10873
     fi
 
+    # If we are on a specific environment, we install additional plugins
+    if [ "${TYPE}" == "work" ]; then
+        if [ -d "~/.vim/bundle/vim-terraform" ]; then
+            # Installs vim-terraform plugin
+            echo "Installing vim-terraform plugin to ~/.vim/bundle/vim-terraform ..."
+            mkdir -p ~/.vim/bundle/vim-terraform
+            git clone git@github.com:hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
+        fi
+        
+        if [ -d "~/.vim/bundle/vim-markdown-preview" ]; then
+            # Installs vim-markdown-preview plugin
+            echo "Installing vim-markdown-preview plugin to ~/.vim/bundle/vim-markdown-preview ..."
+            mkdir -p ~/.vim/bundle/vim-markdown-preview
+            git clone git@github.com:JamshedVesuna/vim-markdown-preview.git ~/.vim/bundle/vim-markdown-preview
+        fi
+    fi
+
     echo "Installation of all plugins complete!"
+    echo
+}
+
+# Installs additional packages that are leveraged from the terminal
+terminal_install_pkgs() {
+    echo "Now checking if there's additional terminal packages needed..."
+
+    # Checks for zsh-autosuggestions plugin
+    if [ -d "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+        echo "Installing zsh-autosuggestions into ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions..."
+        mkdir -p ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        git clone git@github.com:zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    fi
+
+    echo "Finished installing terminal plugins!"
     echo
 }
 
@@ -187,6 +224,7 @@ delete_symlinks() {
 
 # Outputs information about the post install
 post_install() {
+    echo "Installation complete!"
     echo "To complete installation, it is best to start a new terminal session to get all of the configs reloaded."
 }
 
@@ -226,10 +264,11 @@ elif [ -n "${TYPE}" ]; then
     pre_dot_checks
     vim_pre_config
 
-    # Then create symlinks and installs some packages
+    # Then create symlinks and installs packages
     create_symlinks
-    vim_install_pkgs
-    echo "Installation complete!"
+    vim_install_plugins_themes
+    terminal_install_pkgs
+
     post_install
 
 elif [ -z "${TYPE}" ]; then
