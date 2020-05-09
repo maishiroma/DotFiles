@@ -1,0 +1,6 @@
+#### Work .zsh_exports
+# This contains all environment vars that should be set upon launching
+
+export SHELL=/bin/zsh
+export EDITOR='vim'
+

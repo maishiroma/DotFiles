@@ -1,0 +1,5 @@
+# Personal config for .bash_profile_git
+# Obsolete, but here for legacy
+# Configures how I'd interacted with git in a bash environment
+
+export VIM=$SHOW

@@ -1,0 +1,14 @@
+# My .gitconfig for work
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Matthew Shiroma
+	email = mshiroma@nebulaworks.com
+[core]
+	editor = vim
+[credential]
+	helper = store

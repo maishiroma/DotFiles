@@ -1,11 +1,13 @@
+# My personal gitconfig for personal projects
+
 [filter "lfs"]
 	required = true
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	clean = git-lfs clean -- %f
 [user]
-	name = shiro105
-	email = shiro105@mail.chapman.edu
+	name = Matthew Shiroma
+	email = 19522250+maishiroma@users.noreply.github.com
 [core]
 	editor = vim
 

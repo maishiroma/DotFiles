@@ -1,3 +1,6 @@
+# bash_profile that was used prior to my move to zshrc
+# No longer updated, but here for legacy
+
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Setting PATH for Python 2.7

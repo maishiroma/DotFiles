@@ -1,4 +1,5 @@
-# This is the gitignore that I will be using for DevOps projects
+# .gitignore template that I have for work related projects
+# This can also be used as a basis for future .gitignores
 
 # Vim Items
 # Swap
