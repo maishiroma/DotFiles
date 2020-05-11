@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 # The install script for my dot files! 
 # Idea is to use symlinks to have it where my configs are pointed to this repository for easy managing.
 # No need to install additional software, just run this and it should be done.
@@ -8,7 +9,7 @@
 # Prints out the help function of the script
 usage () {
     cat << EOF
-$(basename "$0") [-h] -- Configures a personal system using maishiroma's dot files.
+$(basename "$0") [-odh] -- Configures a personal system using maishiroma's dot files.
 
 This script aims to simplify the process of bringing onboard a new system. Currently, there are two available options that can be passed in the -o flag:
     
@@ -175,13 +176,13 @@ create_symlinks() {
         exit 1
     fi
 
-    echo "The following files will now be symlinked to this repo: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zshrc_exports, ~/.vimrc"
+    echo "The following files will now be symlinked to this repo: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zsh_exports, ~/.vimrc"
     echo "Are you sure that you want to install?"
     echo "Please confirm with 'yes': "
     read userInput
 
     if [ "${userInput}" != "yes" ]; then
-        echo "Leaving script safely."
+        echo "Aborting script safely."
         exit 0
     fi
 
@@ -189,7 +190,7 @@ create_symlinks() {
     
     ln -sf ${dir_loc}/terminal/tmux.conf ~/.tmux.conf
     ln -sf ${dir_loc}/terminal/zshrc ~/.zshrc
-    ln -sf ${dir_loc}/terminal/zshrc_exports ~/.zshrc_exports
+    ln -sf ${dir_loc}/terminal/zsh_exports ~/.zsh_exports
     
     ln -sf ${dir_loc}/vim/vimrc ~/.vimrc
 
@@ -199,33 +200,36 @@ create_symlinks() {
 
 # Removes symlinks that are on the current system
 delete_symlinks() {
-    echo "Are you sure that you want to remove all symlinks?"
-    echo "All symlinks include: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zshrc_exports, ~/.vimrc"
+    echo "Are you sure that you want to remove all symlinks and/or previously existing configurations?"
+    echo "These will be removed: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zsh_exports, ~/.vimrc"
     echo "Please confirm with 'yes':"
     read userInput
 
     if [ "${userInput}" != "yes" ]; then
-        echo "Leaving script safely."
+        echo "Aborting script safely."
         exit 0
     fi
 
-    echo "Removing all symlinks mentioned..."
-    rm ~/.gitconfig
-    
-    rm ~/.tmux.conf
-    rm ~/.zshrc
-    rm ~/.zshrc_exports
-    
-    rm ~/.vimrc
+    echo "Removing symlinks/files mentioned..."
+    # If file/symblink is already removed, we will skip that step
+    if [ ! -f "~/.gitconfig" ]; then
+        rm ~/.gitconfig
+    fi
+    if [ ! -f "~/.tmux.conf" ]; then
+        rm ~/.tmux.conf
+    fi
+    if [ ! -f "~/.zshrc" ]; then
+        rm ~/.zshrc
+    fi
+    if [ ! -f "~/.zsh_exports" ]; then
+        rm ~/.zsh_exports
+    fi
+    if [ ! -f "~/.vimrc" ]; then
+        rm ~/.vimrc
+    fi
 
-    echo "Removed symlinks."
+    echo "Removed all symlinks/files."
     echo
-}
-
-# Outputs information about the post install
-post_install() {
-    echo "Installation complete!"
-    echo "To complete installation, it is best to start a new terminal session to get all of the configs reloaded."
 }
 
 ### Main
@@ -253,14 +257,14 @@ shift $((OPTIND - 1))
 # Main logic loop
 if [ -n "${DELETE_MODE}" ]; then
     # We are going to delete the symlinks from the system
-    echo "Preparing to deleting current Dotfiles on system..."
+    echo "Preparing to deleting current dotfiles on system..."
     delete_symlinks
-    echo "Deletion of dotfiles complete!"
+    echo "Deletion complete!"
 
 elif [ -n "${TYPE}" ]; then
     # We are going to install the symlinks onto the system
     # First, run prechecks and preconfigs
-    echo "Preparing to install Matt's Dotfiles on system..."
+    echo "Preparing to install dotfiles on system..."
     pre_dot_checks
     vim_pre_config
 
@@ -269,7 +273,7 @@ elif [ -n "${TYPE}" ]; then
     vim_install_plugins_themes
     terminal_install_pkgs
 
-    post_install
+    echo "Installation complete! To reload the configuation, start a new terminal session."
 
 elif [ -z "${TYPE}" ]; then
     echo "The -o flag needs to be specified when doing an install. Please look at the -h for more help"
