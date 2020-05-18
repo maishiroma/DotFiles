@@ -6,6 +6,8 @@ set -e
 
 ### Functions
 
+## Helper Functions
+
 # Prints out the help function of the script
 usage () {
     cat << EOF
@@ -18,17 +20,54 @@ This script aims to simplify the process of bringing onboard a new system. Curre
 
 FLAGS:
     -o:     Specifies which kind of dotfiles to leverage (REQUIRED)
+    -n:     Specifies a new binary to update for that particular symlink
     -d:     Enabled delete mode on this script
     -h:     Shows this help page
 
 EXAMPLE:
     1.) ./configure.sh -o personal
-        Configures a new installation of dot files using the personal configs
+        Configures a new installation of dot files using the personal configs and binaries
 
     2.) ./configure.sh -d
         Removes the current installation of dot files on the system
+    
+    3.) ./configure.sh -o work -n someBinary
+        Updates the symlink for a binary to utilize the specified binary in the work config
 EOF
 }
+
+# Checks if the user wants to proceed. If not, the script will end
+confirm_user() {
+    echo "Are you sure you want to proceed?"
+    echo "Please confirm with 'yes': "
+    read userInput
+
+    if [ "${userInput}" != "yes" ]; then
+        echo "Aborting script safely."
+        exit 0
+    fi
+}
+
+# Downloads the binary that is specified, validating its validity
+# Parameters: $1=newBinaryPath, $2=fileName
+# newBinaryPath: The path that leads to the file that contains the download link to the binary and a SHA
+# fileName: The name of the binary that will be utilized
+download_new_binary() {
+    fileURL=$(head -1 $1)
+    fileSHA=$(tail -1 $1)
+    packageName=$(echo ${FILE##/*/})
+
+    curl -LSso ~/CLI_Tools/$2.zip ${fileURL}
+    if [ $(sha256 "~/CLI_Tools/$2.zip") != "${fileSHA}" ]; then
+        echo "$2 didn't seem to be valid, skipping..."
+    else
+        unzip ~/CLI_Tools/$2.zip -d ~/CLI_Tools/$2
+        echo "Sucessfully validated and downloaded binary, into ~/CLI_Tools/$2"
+    fi
+    rm ~/CLI_Tools/$2.zip
+}
+
+## Main Logic Functions
 
 # Checks the system if the pre-requirements are installed:
 # Specifically, git, brew, zsh and Oh my Zsh
@@ -163,13 +202,13 @@ terminal_install_pkgs() {
 }
 
 # Symlinks all needed config files to their respectible places, depending on the flag, TYPE
-create_symlinks() {
+create_config_symlinks() {
     dir_loc=""
     if [ "${TYPE}" == "personal" ]; then
-        echo "Symlinking configs from the personal directory"
+        echo "Symlinking configs from the personal directory..."
         dir_loc="$(pwd)/personal"
     elif [ "${TYPE}" == "work" ]; then
-        echo "Symlinking configs from the work directory"
+        echo "Symlinking configs from the work directory..."
         dir_loc="$(pwd)/work"
     else
         echo "That option is not valid here, sorry! Try asking for help. :)"
@@ -177,14 +216,7 @@ create_symlinks() {
     fi
 
     echo "The following files will now be symlinked to this repo: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zsh_exports, ~/.vimrc"
-    echo "Are you sure that you want to install?"
-    echo "Please confirm with 'yes': "
-    read userInput
-
-    if [ "${userInput}" != "yes" ]; then
-        echo "Aborting script safely."
-        exit 0
-    fi
+    confirm_user
 
     ln -sf ${dir_loc}/git/gitconfig ~/.gitconfig
     
@@ -199,16 +231,9 @@ create_symlinks() {
 }
 
 # Removes symlinks that are on the current system
-delete_symlinks() {
-    echo "Are you sure that you want to remove all symlinks and/or previously existing configurations?"
-    echo "These will be removed: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zsh_exports, ~/.vimrc"
-    echo "Please confirm with 'yes':"
-    read userInput
-
-    if [ "${userInput}" != "yes" ]; then
-        echo "Aborting script safely."
-        exit 0
-    fi
+delete_config_symlinks() {
+    echo "The following symlinks will be removed: ~/.gitconfig, ~/.tmux.conf, ~/.zshrc, ~/.zsh_exports, ~/.vimrc"
+    confirm_user
 
     echo "Removing symlinks/files mentioned..."
     # If file/symblink is already removed, we will skip that step
@@ -232,14 +257,115 @@ delete_symlinks() {
     echo
 }
 
+# Creates symlinks to specific binaries
+create_binary_symlinks() {
+    dir_loc=""
+    if [ "${TYPE}" == "personal" ]; then
+        echo "Utilizing binaries from the personal directory..."
+        dir_loc="$(pwd)/personal/binaries"
+    elif [ "${TYPE}" == "work" ]; then
+        echo "Utilizing binaries from from the work directory..."
+        dir_loc="$(pwd)/work/binaries"
+        echo
+    else
+        echo "That option is not valid here, sorry! Try asking for help. :)"
+        exit 1
+    fi
+
+    echo "The specified binaries will be downloaded and verified in ~/CLI_Tools and symlinked in ~/bin_symlinks: "
+    ls ${dir_loc}
+    confirm_user
+
+    # Creates needed dirs if they do not exist
+    if [ -d "~/CLI_Tools" ]; then
+        echo "Creating ~/CLI_Tools..."
+        mkdir -p ~/CLI_Tools
+    fi
+    if [ -d "~/bin_symlinks" ]; then
+        echo "Creating ~/bin_symlinks..."
+        mkdir -p ~/bin_symlinks
+    fi
+
+    # Downloads, verifies, and symlinks binaries to ~/binary_symlinks
+    for currBinaryPath in "${dir_loc}"/* 
+    do
+        fileName=$(basename -- "${currBinaryPath}")
+        fileName="${fileName%.*}"
+        binaryName=$(echo ${fileName} | cut -d '_' -f 1)
+
+        download_new_binary "${currBinaryPath}" "${fileName}"
+        ln -sf ${HOME}/CLI_Tools/${fileName} ~/bin_symlinks/${binaryName}
+
+        echo "Successfully made binary symlink, ${binaryName}, in ~/bin_symlinks/${binaryName}"
+    done
+
+    echo "Finished setting up all binary symlinks to system. Please verify that your PATH contains: $(pwd)/binary_symlinks"
+}
+
+# Deletes all binary symlinks
+delete_binary_symlinks() {
+    if [ -d "~/bin_symlinks" ]; then
+        echo "There are no symlinks to delete! Exiting..."
+        exit 1
+    fi
+    
+    echo "The following symlinks will be removed: "
+    ls ~/bin_symlinks
+    confirm_user
+
+    rm -f /bin_symlinks/*
+    echo "All symlinks removed! To remove binaries, those need to be manually removed from ~/CLI_Tools."
+}
+
+# Takes in a new binary, removes a corresponding one, and adds it in
+# Taken from a simlar vein to how stow does it
+update_binary_symlinks() {
+    if [[ -d "~/CLI_Tools" ]]  || [[ -d "~/bin_symlinks" ]]; then
+        echo "There are missing directories! Exiting..."
+        exit 1
+    fi
+
+    dir_loc=""
+    if [ "${TYPE}" == "personal" ]; then
+        echo "Utilizing binaries from the personal directory..."
+        dir_loc="$(pwd)/personal/binaries"
+    elif [ "${TYPE}" == "work" ]; then
+        echo "Utilizing binaries from from the work directory..."
+        dir_loc="$(pwd)/work/binaries"
+    else
+        echo "That option is not valid here, sorry! Try asking for help. :)"
+        exit 1
+    fi
+
+    newBinaryFile="${dir_loc}/${NEW_BINARY_NAME}.tmp"
+    newBinaryNameNoVer=$(echo ${NEW_BINARY_NAME} | cut -d '_' -f 1)
+    oldBinaryName=$(basename $(readlink ${newBinaryNameNoVer}))
+
+    echo "We are going to download the new binary (if needed) and reconfigure the symlink of ${newBinaryNameNoVer}."
+    echo "OLD: ${oldBinaryName}"
+    echo "NEW: ${NEW_BINARY_NAME}"
+    confirm_user
+    
+    if [ -d "~/CLI_Tools/${NEW_BINARY_NAME}" ]; then
+        echo "${NEW_BINARY_NAME} not found in ~/CLI_Tools. Will be downloading a copy..."
+        download_new_binary "${newBinaryFile}" "${NEW_BINARY_NAME}"
+    fi
+    
+    ln -sf ${HOME}/CLI_Tools/${NEW_BINARY_NAME} ~/bin_symlinks/${newBinaryNameNoVer}
+    echo "Sucessfully updated symlink to use ${NEW_BINARY_NAME}."
+}
+
 ### Main
-while getopts 'o:dh' option; do
+while getopts 'n:o:dh' option; do
     case "$option" in
         d)
             DELETE_MODE=true
             ;;
         o)
             TYPE=("$OPTARG")
+            ;;
+        n)
+            NEW_BINARY_NAME=("$OPTARG")
             ;;
         h) 
             usage
@@ -258,22 +384,34 @@ shift $((OPTIND - 1))
 if [ -n "${DELETE_MODE}" ]; then
     # We are going to delete the symlinks from the system
     echo "Preparing to deleting current dotfiles on system..."
-    delete_symlinks
+    delete_config_symlinks
+    delete_binary_symlinks
     echo "Deletion complete!"
 
 elif [ -n "${TYPE}" ]; then
-    # We are going to install the symlinks onto the system
-    # First, run prechecks and preconfigs
-    echo "Preparing to install dotfiles on system..."
-    pre_dot_checks
-    vim_pre_config
+    if [ -n "${NEW_BINARY_NAME}" ]; then
+        # We are going to update an existing symlink
+        echo "Preparing symlink update..."
+        update_binary_symlinks
+        echo "Update complete!"
 
-    # Then create symlinks and installs packages
-    create_symlinks
-    vim_install_plugins_themes
-    terminal_install_pkgs
+    else
+        # We are going to install the symlinks onto the system
+        # First, run prechecks and preconfigs
+        echo "Preparing to install dotfiles on system..."
+        pre_dot_checks
+        vim_pre_config
 
-    echo "Installation complete! To reload the configuation, start a new terminal session."
+        # Then create symlinks and installs packages
+        create_config_symlinks
+        vim_install_plugins_themes
+        terminal_install_pkgs
+
+        # We are also going to install binary symlinks
+        create_config_symlinks
+
+        echo "Installation complete! To reload the configuation, start a new terminal session."
+    fi
 
 elif [ -z "${TYPE}" ]; then
     echo "The -o flag needs to be specified when doing an install. Please look at the -h for more help"
