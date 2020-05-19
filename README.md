@@ -24,10 +24,10 @@ Each of these configurations are organized in root folders, indicating which env
 - `work`: Configs that are used for my work devices
 
 ## How to Install
-Installation is as simple running `configure.sh` in the repo's root.
+Installation is as simple as running `configure.sh` in the repo's root, specifying which type of config to utilize in the `-o`:
 ```
 cd /this/repo
-./configure.sh -o <value>
+./configure.sh -o <personal/work>
 ```
 
 If this amount of control is not necessary, an alterntive solution is to manually copy and paste the specific config to wherever it is needed:
@@ -48,19 +48,7 @@ cd /this/repo
 ./configure.sh -d
 ```
 
-To create a symlink to a specific binary:
-```
-cd /this/repo
-./configure.sh -b binary_version
-```
-
-To remove a binary's symlink:
-```
-cd /this/repo
-./configure.sh -b binary_version -d
-```
-
-For more details on the script's flags:
+For more details on the script's flags as well as additional functionalities:
 ```
 ./configure.sh -h
 ```

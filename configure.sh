@@ -11,22 +11,28 @@ set -e
 # Prints out the help function of the script
 usage () {
     cat << EOF
-$(basename "$0") [-obdh] -- Configures a personal system using maishiroma's dot files.
+$(basename "$0") [-o] [-b] [-d] [-h] -- Configures a personal system using maishiroma's dot files.
 
 This script aims to simplify the process of bringing onboard a new system. Currently, there are two available options that can be passed in the -o flag:
     
     personal (My personal configs)
     work     (What my work laptop has for configs)
 
+This script is also a wrapper for managing binary symlinks. While those links are not tied to this, this script helps simplifies the workflow of managing multiple binaries. Note that to use this, binaries MUST be named in the following syntax:
+
+    some-binary_version.number
+
+where "binary-binary" is the name that the binary is referred to (spaces are -), and the version.number is the binary's version.
+
 FLAGS:
-    -o:     Specifies which kind of dotfiles to leverage (REQUIRED)
+    -o:     Specifies which kind of dotfiles to leverage
     -b:     Specifies a binary file to create a symlink towards
     -d:     Enabled delete mode on this script
     -h:     Shows this help page
 
 EXAMPLES:
     1.) ./configure.sh -o personal
-        Configures a new installation of dot files using the personal configs and binaries
+        Configures a new installation of dot files using the personal configs
 
     2.) ./configure.sh -b some-binary_1.0.0
         Creates a symlink to the specified binary
@@ -35,18 +41,19 @@ EXAMPLES:
         Removes the current installation of dot files on the system
 
     4) ./configure.sh -d -b some-binary_1.0.0
-        Removes the specified binary symlink
+        Removes the specified binary's symlink
 EOF
 }
 
 # Checks if the user wants to proceed. If not, the script will end
 confirm_user() {
+    echo
     echo "Are you sure you want to proceed?"
     echo "Please confirm with 'yes': "
     read userInput
 
     if [ "${userInput}" != "yes" ]; then
-        echo "Aborting script safely."
+        echo "Did not receive explicit yes, leaving script..."
         exit 0
     fi
 }
@@ -96,7 +103,9 @@ pre_dot_checks() {
 
 # Configures vim by creating the needed dirs
 vim_pre_config () {
-    echo "Checking if .vim dirs are created..."
+    echo "Checking if needed .vim directories are created..."
+    echo "The specific .vim directories will be created, if not already existing: autoload, bundle, plugin, backup, and colors."
+    confirm_user
 
     if [ ! -d "$HOME/.vim/autoload" ]; then
         echo "Creating $HOME/.vim/autoload"
@@ -123,13 +132,16 @@ vim_pre_config () {
         mkdir -p $HOME/.vim/colors
     fi
 
-    echo "Finished checking .vim dirs"
+    echo "Finished configuring .vim directories"
     echo
 }
 
 # Sets up the binary symlink directories
 prep_binary_symlink_dirs() {
     echo "Checking if needed directories for binary symlinks are present..."
+    echo "The following directories will be created, if not existing: ~/CLI_Tools and ~/CLI_Tools/bin_symlinks"
+    confirm_user
+
     if [ ! -d "$HOME/CLI_Tools/bin_symlinks" ]; then
         echo "Creating $HOME/CLI_Tools/bin_symlinks..."
         mkdir -p $HOME/CLI_Tools/bin_symlinks
@@ -141,7 +153,10 @@ prep_binary_symlink_dirs() {
 
 # Installs all plugins for vim
 vim_install_plugins_themes() {
-    echo "Installing Vim plugins and themes..."
+    echo "Prepping to install Vim plugins and themes..."
+    echo "The following plugins will be installed, if not already: pathogen, autoclose"
+    echo "The following themes will be installed, if not already: iceberg"
+    confirm_user
 
     if [ ! -f "$HOME/.vim/autoload/pathogen.vim" ]; then
         # Install pathogen
@@ -163,6 +178,9 @@ vim_install_plugins_themes() {
 
     # If we are on a specific environment, we install additional plugins
     if [ "${TYPE}" == "work" ]; then
+        echo "Detected using work setup. Additional plugins will also be installed, if not already: vim-terraform, vim-markdown-preview"
+        confirm_user
+
         if [ ! -d "$HOME/.vim/bundle/vim-terraform" ]; then
             # Installs vim-terraform plugin
             echo "Installing vim-terraform plugin to $HOME/.vim/bundle/vim-terraform ..."
@@ -185,6 +203,8 @@ vim_install_plugins_themes() {
 # Installs additional packages that are leveraged from the terminal
 terminal_install_pkgs() {
     echo "Now checking if there's additional terminal packages needed..."
+    echo "The following plugins will be installed if not already installed: zsh-autosuggestions"
+    confirm_user
 
     # Checks for zsh-autosuggestions plugin
     if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
@@ -212,7 +232,6 @@ create_config_symlinks() {
     fi
 
     echo "The following files will now be symlinked to this repo: $HOME/.gitconfig, $HOME/.tmux.conf, $HOME/.zshrc, $HOME/.zsh_exports, $HOME/.vimrc"
-    echo
     confirm_user
 
     ln -sf ${dir_loc}/git/gitconfig $HOME/.gitconfig
@@ -223,14 +242,13 @@ create_config_symlinks() {
     
     ln -sf ${dir_loc}/vim/vimrc $HOME/.vimrc
 
-    echo "Finished symlinking configs."
+    echo "Finished symlinking configs!"
     echo
 }
 
 # Removes symlinks that are on the current system
 delete_config_symlinks() {
     echo "The following symlinks will be removed: $HOME/.gitconfig, $HOME/.tmux.conf, $HOME/.zshrc, $HOME/.zsh_exports, $HOME/.vimrc"
-    echo
     confirm_user
 
     # If file/symblink is already removed, we will skip that step
@@ -251,7 +269,7 @@ delete_config_symlinks() {
         rm $HOME/.vimrc
     fi
 
-    echo "Removed all symlinks/files."
+    echo "Removed all symlinks and/or files!"
     echo
 }
 
@@ -260,37 +278,40 @@ delete_config_symlinks() {
 create_binary_symlinks() {
     echo "Checking that $HOME/CLI_Tools contains the specified binary..."
     if [ ! -f "$HOME/CLI_Tools/${SPEC_BIN_NAME}" ]; then
-        echo "Error, cannot find ${SPEC_BIN_NAME}, exiting..."
-        exit 1
-    fi
-
-    binaryNameClean=$(echo ${SPEC_BIN_NAME} | cut -d '_' -f 1)
-    if [ ! -f "$HOME/CLI_Tools/bin_symlinks/${binaryNameClean}" ]; then
-        echo "No existing symlink was found. Will be creating a new symlink to ${SPEC_BIN_NAME} at $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}"
-        echo
+        echo "Error, cannot find ${SPEC_BIN_NAME} in $HOME/CLI_Tools, exiting..."
     else
-        existingBinName=$(basename $(readlink ${HOME}/CLI_Tools/bin_symlinks/${binaryNameClean}))
-        echo "An existing symlink was found at $HOME/CLI_Tools/bin_symlinks"
-        echo "EXISTING: ${existingBinName}"
-        echo "NEW: ${SPEC_BIN_NAME}"
-        echo
-        echo "This action will rewrite the current symlink to use the new binary."
-        echo "The old binary will still exist in $HOME/CLI_Tools."
-        echo
-    fi
-    confirm_user
+        binaryNameClean=$(echo ${SPEC_BIN_NAME} | cut -d '_' -f 1)
+        
+        if [ ! -f "$HOME/CLI_Tools/bin_symlinks/${binaryNameClean}" ]; then
+            echo "No existing symlink was found in $HOME/CLI_Tools. Will be creating symlink, ${binaryNameClean}, to ${SPEC_BIN_NAME}"
+        else
+            existingBinName=$(basename $(readlink ${HOME}/CLI_Tools/bin_symlinks/${binaryNameClean}))
+            
+            if [ "${existingBinName}" == "${SPEC_BIN_NAME}" ]; then
+                echo "It appears that the symlink won't be changed, sine it is already using that binary."
+                echo "Exiting script..."
+                exit 0
+            else
+                echo "An existing symlink was found at $HOME/CLI_Tools/bin_symlinks!"
+                echo "EXISTING: ${existingBinName}"
+                echo "NEW: ${SPEC_BIN_NAME}"
+                echo
+                echo "This action will rewrite the current symlink to use the NEW binary."
+            fi
+        fi
+        confirm_user
 
-    ln -sf ${HOME}/CLI_Tools/${SPEC_BIN_NAME} $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}
-    echo "Successfully made ${SPEC_BIN_NAME} symlink in $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}"
-    echo "Please verify that PATH contains: $(pwd)/CLI_Tools/bin_symlinks so that the binary can be used."
-    echo
+        ln -sf ${HOME}/CLI_Tools/${SPEC_BIN_NAME} $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}
+        echo "Successfully made ${SPEC_BIN_NAME} symlink in $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}"
+        echo "Please verify that PATH contains: $(pwd)/CLI_Tools/bin_symlinks so that the binary can be used."
+    fi
 }
 
 # Deletes the specified binary symlink
 delete_binary_symlink() {
-    
-    binaryNameClean=$(echo ${SPEC_BIN_NAME} | cut -d '_' -f 1)
     echo "Checking that $HOME/CLI_Tools contains the specified binary..."
+
+    binaryNameClean=$(echo ${SPEC_BIN_NAME} | cut -d '_' -f 1)
     if [ ! -f "$HOME/CLI_Tools/${SPEC_BIN_NAME}" ]; then
         echo "Error, cannot find ${SPEC_BIN_NAME}, exiting..."
         exit 1
@@ -303,13 +324,10 @@ delete_binary_symlink() {
     if [ $(basename ${symlinkToDelete}) == ${SPEC_BIN_NAME} ]; then
         echo "The following symlink will be removed: $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}"
         echo "All new calls to ${binaryNameClean} will not work until this is set again!"
-        echo
         confirm_user
 
         rm -f $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}
         echo "Symlink removed! To remove the actual binary, you need to manually remove it from $HOME/CLI_Tools."
-    echo
-
     else
         echo "Current symlink with ${binaryNameClean} is not established with ${SPEC_BIN_NAME}, exiting..."
         exit 1
@@ -341,25 +359,21 @@ while getopts 'b:o:dh' option; do
 done
 shift $((OPTIND - 1))
 
-# Main logic loop
+# Main logic
 if [ -n "${DELETE_MODE}" ]; then
     if [ -n "${SPEC_BIN_NAME}" ]; then
         # We are going to delete the specified binary symlink 
         echo "Preparing to manage binary symlinks..."
         delete_binary_symlink
-    
     else
         # We are going to delete the all config symlinks from the system
         echo "Preparing to deleting current dotfiles on system..."
         delete_config_symlinks
-        echo "Deletion complete!"
     fi
-    
 elif [ -n "${SPEC_BIN_NAME}" ]; then
     # We are going to add a specific binary symlink 
     echo "Preparing to manage binary symlink..."
     create_binary_symlinks
-
 elif [ -n "${TYPE}" ]; then
     # We are going to install all config symlinks onto the system
     # First, run prechecks and preconfigs
@@ -374,9 +388,8 @@ elif [ -n "${TYPE}" ]; then
     terminal_install_pkgs
 
     echo "Installation complete! To reload the configuation, start a new terminal session."
-    echo "To add binaries, run this script again with -b flag and binary_version in $HOME/CLI_Tools"
-
-elif [ -z "${TYPE}" ]; then
-    echo "The -o flag needs to be specified when doing an install. Please look at the -h for more help"
-    exit 1
+    echo "To add binary symlinks, run this script with -b flag and specify a binary found in $HOME/CLI_Tools"
+elif [[ -z "${TYPE}" ]] || [[ -z "${SPEC_BIN_NAME}" ]]; then
+    usage
+    exit 0
 fi
