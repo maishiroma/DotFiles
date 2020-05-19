@@ -16,8 +16,8 @@ export PATH=/usr/local/mysql/bin:$PATH
 # The original version is saved in .bash_profile.pysave
 export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 
-# CLI Binaries
-export PATH="/Users/matthewshiroma/Coding/CLI_Tools:${PATH}"
+# standalone bin symlinks
+export PATH="/Users/matthewshiroma/CLI_Tools/bin_symlinks:${PATH}"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/matthewshiroma/.oh-my-zsh"
