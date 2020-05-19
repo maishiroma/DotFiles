@@ -48,6 +48,18 @@ cd /this/repo
 ./configure.sh -d
 ```
 
+To create a symlink to a specific binary:
+```
+cd /this/repo
+./configure.sh -b binary_version
+```
+
+To remove a binary's symlink:
+```
+cd /this/repo
+./configure.sh -b binary_version -d
+```
+
 For more details on the script's flags:
 ```
 ./configure.sh -h
