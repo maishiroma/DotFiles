@@ -10,4 +10,9 @@
 	email = 19522250+maishiroma@users.noreply.github.com
 [core]
 	editor = vim
+[alias]
+	# Shortcut command to combine both rebase and fixup all in one line
+	# 1: Commmits to squash; 2: String message
+	# Ex: git squash 2 "new message"
+	squash = "!f(){ git reset --soft HEAD~${1} && git commit -m ${2}; };f"
 
