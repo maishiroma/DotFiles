@@ -124,13 +124,20 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+# To remove an alias: unalias ...
 alias tmux="TERM=screen-256color-bce tmux"
-alias 2sandbox="cd /Users/mshiroma/Documents/CompanyProjects/Internal/sandbox/users/ms"
+alias 2sandbox="cd /Users/mshiroma/Documents/CompanyProjects/Internal/GitLab/sandbox/users/ms"
+alias 2infra="cd /Users/mshiroma/Documents/CompanyProjects/Internal/GitLab/infra"
 alias hg="history | grep"
+alias clearls="clear && ls"
 
-# Functions
+### Functions
+
 # Allows one to look and search for specific keywords passed into grep
 function sgrep() { grep -Hurn "$@" .; }
+
+# cds into a directory and lists out the files in it
+function cdls() { cd "$@"; ls; }
 
 # Start up commands
 tmux new -A -s work > /dev/null 2>&1
