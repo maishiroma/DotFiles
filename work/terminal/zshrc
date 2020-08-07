@@ -139,6 +139,15 @@ function sgrep() { grep -Hurn "$@" .; }
 # cds into a directory and lists out the files in it
 function cdls() { cd "$@"; ls; }
 
+# A true way to get all resources that are made in a given namespace
+function kubectlgetall {
+  for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+    echo
+    echo "Resource:" $i
+    kubectl -n ${1} get --ignore-not-found ${i}
+  done
+}
+
 # Start up commands
 tmux new -A -s work > /dev/null 2>&1
 eval "$(rbenv init -)"
