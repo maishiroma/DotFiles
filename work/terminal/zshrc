@@ -128,6 +128,8 @@ source $ZSH/oh-my-zsh.sh
 alias tmux="TERM=screen-256color-bce tmux"
 alias 2sandbox="cd /Users/mshiroma/Documents/CompanyProjects/Internal/GitLab/sandbox/users/ms"
 alias 2infra="cd /Users/mshiroma/Documents/CompanyProjects/Internal/GitLab/infra"
+alias 2train="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training"
+alias 2dot="cd /Users/mshiroma/Documents/PersonalProjects/DotFiles"
 alias hg="history | grep"
 alias clearls="clear && ls"
 
