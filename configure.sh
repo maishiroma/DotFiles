@@ -41,7 +41,7 @@ EXAMPLES:
         Removes the current installation of dot files on the system
 
     4) ./configure.sh -d -b some-binary_1.0.0
-        Removes the specified binary's symlink
+        Removes the specified binary's symlink, while presenting the option to delete said binary
 EOF
 }
 
@@ -304,6 +304,10 @@ create_binary_symlinks() {
         ln -sf ${HOME}/CLI_Tools/${SPEC_BIN_NAME} $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}
         echo "Successfully made ${SPEC_BIN_NAME} symlink in $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}"
         echo "Please verify that PATH contains: $(pwd)/CLI_Tools/bin_symlinks so that the binary can be used."
+
+        if [ "${existingBinName}" != "${SPEC_BIN_NAME}" ]; then
+            delete_old_binary ${existingBinName}
+        fi
     fi
 }
 
@@ -327,9 +331,29 @@ delete_binary_symlink() {
         confirm_user
 
         rm -f $HOME/CLI_Tools/bin_symlinks/${binaryNameClean}
-        echo "Symlink removed! To remove the actual binary, you need to manually remove it from $HOME/CLI_Tools."
+        echo "Symlinked removed!"
+
+        delete_old_binary ${SPEC_BIN_NAME}
     else
         echo "Current symlink with ${binaryNameClean} is not established with ${SPEC_BIN_NAME}, exiting..."
+        exit 1
+    fi
+}
+
+# Deletes the binary that was specified in this function's parameter
+delete_old_binary() {
+    binary_to_delete=$1
+
+    if [ -f "$HOME/CLI_Tools/$binary_to_delete" ]; then
+        echo
+        echo "Would you like to remove the old binary, $binary_to_delete, as well?"
+        echo "If not, the script will complete and the binary will still be in $HOME/CLI_Tools."
+        confirm_user
+
+        rm -f $HOME/CLI_Tools/$binary_to_delete
+        echo "Removed old binary!"
+    else
+        echo "$HOME/CLI_Tools/$binary_to_delete is not found, exiting script..."
         exit 1
     fi
 }
