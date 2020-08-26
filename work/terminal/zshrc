@@ -130,7 +130,8 @@ alias 2sandbox="cd /Users/mshiroma/Documents/CompanyProjects/Internal/GitLab/san
 alias 2infra="cd /Users/mshiroma/Documents/CompanyProjects/Internal/GitLab/infra"
 alias 2train="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training"
 alias 2dot="cd /Users/mshiroma/Documents/PersonalProjects/DotFiles"
-alias hg="history | grep"
+alias 2pyenv="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training/pythonGrounds"
+alias hgrep="history | grep"
 alias clearls="clear && ls"
 
 ### Functions
