@@ -136,6 +136,7 @@ alias 2dot="cd /Users/mshiroma/Documents/PersonalProjects/DotFiles"
 alias 2pyenv="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training/pythonGrounds"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
+alias tmuxcp="tmux capture-pane -pS"
 
 ### Functions
 
@@ -152,6 +153,16 @@ function kubectlgetall {
     echo "Resource:" $i
     kubectl -n ${1} get --ignore-not-found ${i}
   done
+}
+
+# A quick and dirty way to get X number of buffer lines in the current tmux pane
+# Takes in an argument; if none passed, will just take 10 lines by default
+function tmuxcpy() {
+  if [ -z ${1} ]; then
+      tmux capture-pane -pS -10 | pbcopy
+  else
+      tmux capture-pane -pS -${1} | pbcopy
+  fi
 }
 
 # Start up commands
