@@ -52,3 +52,12 @@ For more details on the script's flags as well as additional functionalities:
 ```
 ./configure.sh -h
 ```
+
+### Downloading new Binaries
+To help automate the installation of new binaries, the script, `bin_dw.sh` can be used:
+```
+./bin_dw.sh -b binary_name -v X.Y.Z
+```
+
+Currently the following binaries can be downloaded and verified:
+- `terraform`
