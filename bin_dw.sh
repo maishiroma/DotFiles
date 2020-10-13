@@ -15,20 +15,20 @@ This script automates downloading specific binary files that are useful for myse
     Main Binary Path = ${HOME}/CLI_Tools
     
 FLAGS:
-    -d:     Downloads the given terraform version
-    -v:     Switches to the given terraform version
+    -d:     Downloads the specified binary
+    -v:     Specify which version to download from the selected binary
     -p:     Specified a new Binary Path to utilize (optional; defaults to ${HOME}/CLI_Tools)
     -h:     Shows this help page
 
 EXAMPLES:
     1.) ./$(basename "$0") -d binary_name -v X.Y.Z
-        Downloads the specified binary name with X.Y.Z version and puts it in the MAIN_BINARY_PATH (defaults to ${HOME}/CLI_Tools)
+        Downloads the specified binary name with X.Y.Z version and puts it in ${HOME}/CLI_Tools (default)
 
 EOF
 }
 
 # Returns the OS that the system is
-# WIP (only tested on Mac and Windows (Git Bash) )
+# WIP (only tested on Mac and Windows (Git Bash))
 os_finder() {
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "linux"
@@ -106,7 +106,6 @@ download_binary() {
     current_os=$(os_finder)
 
     echo "Downloading ${formatted}_${2}, please hold..."
-
     if [ -f "$MAIN_BINARY_PATH/${formatted}_${2}" ]; then 
         echo "${formatted}_${2} already exists! You can switch to it using configure.sh!"
         exit 1;
