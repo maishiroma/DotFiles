@@ -19,6 +19,10 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 # Setting PATH to allow usage of python3.7
 export PATH="/usr/local/opt/python@3.7/bin:$PATH"
 
+# Setting up PATH for GoLang
+export GOPATH="/Users/mshiroma/.go"
+export PATH="/Users/mshiroma/.go/bin:$PATH"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/mshiroma/plugins/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mshiroma/plugins/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -136,7 +140,6 @@ alias 2dot="cd /Users/mshiroma/Documents/PersonalProjects/DotFiles"
 alias 2pyenv="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training/pythonGrounds"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
-alias tmuxcp="tmux capture-pane -pS"
 
 ### Functions
 
@@ -163,6 +166,17 @@ function tmuxcpy() {
   else
       tmux capture-pane -pS -${1} | pbcopy
   fi
+}
+
+# A simplifier command that takes the output of a terraform init/plan/apply and saves it to the clipboard.
+function tfcmdcp() {
+  touch tfoutput.txt
+  if [ -z "${1}" ]; then
+    echo "Need to pass either init/plan/apply"      
+  fi
+  terraform ${1} -no-color 2>&1 | tee -a tfoutput.txt
+  cat tfoutput.txt | pbcopy 
+  rm tfoutput.txt 
 }
 
 # Start up commands
