@@ -283,23 +283,23 @@ delete_config_symlinks() {
 # Creates symlinks to a specific binary
 # Presumes that the binary was already downloaded and verified
 create_binary_symlinks() {
-    echo "Checking that ${MAIN_BIN_PATH} contains the specified binary..."
+    echo "Checking that ${MAIN_BIN_PATH} contains ${SPEC_BIN_NAME}..."
     echo
 
     if [ ! -f "${MAIN_BIN_PATH}/${SPEC_BIN_NAME}" ]; then
-        echo "Error, cannot find ${SPEC_BIN_NAME} in ${MAIN_BIN_PATH}, exiting..."
+        echo "Error, cannot find ${SPEC_BIN_NAME}, exiting..."
         echo
     else
         binaryNameClean=$(echo ${SPEC_BIN_NAME} | cut -d '_' -f 1)
         
         if [ ! -f "${BIN_SYMLINK_PATH}/${binaryNameClean}" ]; then
-            echo "No existing symlink was found in ${MAIN_BIN_PATH}. Will be creating symlink, ${binaryNameClean}, to ${SPEC_BIN_NAME}"
-            echo 
+            echo "No existing symlink was found! The following will be made:"
+            echo "${binaryNameClean} -> ${SPEC_BIN_NAME}"
         else
             existingBinName=$(basename $(readlink ${BIN_SYMLINK_PATH}/${binaryNameClean}))
             
             if [ "${existingBinName}" == "${SPEC_BIN_NAME}" ]; then
-                echo "It appears that the symlink won't be changed, sine it is already using that binary."
+                echo "The symlink won't be changed, sine it is already using that binary."
                 echo "Exiting script..."
                 exit 0
             else
@@ -312,11 +312,7 @@ create_binary_symlinks() {
         confirm_user
 
         ln -sf ${HOME}/CLI_Tools/${SPEC_BIN_NAME} ${BIN_SYMLINK_PATH}/${binaryNameClean}
-        echo "Successfully made ${SPEC_BIN_NAME} symlink in ${BIN_SYMLINK_PATH}/${binaryNameClean}!"
-
-        if [ "${existingBinName}" != "${SPEC_BIN_NAME}" ]; then
-            delete_old_binary ${existingBinName}
-        fi
+        echo "Successfully made symlink, ${binaryNameClean}!"
     fi
 }
 
@@ -335,12 +331,11 @@ delete_binary_symlink() {
     
     symlinkToDelete=$(readlink ${BIN_SYMLINK_PATH}/${binaryNameClean})
     if [ $(basename ${symlinkToDelete}) == ${SPEC_BIN_NAME} ]; then
-        echo "The following symlink will be removed: ${BIN_SYMLINK_PATH}/${binaryNameClean}"
-        echo "All new calls to ${binaryNameClean} will not work until this is set again!"
+        echo "The following symlink will be removed: ${binaryNameClean}"
         confirm_user
 
         rm -f $BIN_SYMLINK_PATH/${binaryNameClean}
-        echo "Symlinked removed!"
+        echo "Symlink removed!"
 
         delete_old_binary ${SPEC_BIN_NAME}
     else
@@ -362,7 +357,7 @@ delete_old_binary() {
         rm -f ${MAIN_BIN_PATH}/${binary_to_delete}
         echo "Removed old binary!"
     else
-        echo "${MAIN_BIN_PATH}/${binary_to_delete} is not found, exiting script..."
+        echo "${binary_to_delete} is not found, exiting script..."
         exit 1
     fi
 }
@@ -378,21 +373,21 @@ list_binary_symlinks() {
 }
 
 ### Main
-while getopts 'b:o:d:phl' option; do
+while getopts 'b:o:p:dlh' option; do
     case "$option" in
-        d)
-            DELETE_MODE=true
+        b)
+            SPEC_BIN_NAME=("$OPTARG")
             ;;
         o)
             TYPE=("$OPTARG")
-            ;;
-        b)
-            SPEC_BIN_NAME=("$OPTARG")
             ;;
         p)
             MAIN_BIN_PATH=("$OPTARG")
             BIN_SYMLINK_PATH=${MAIN_BIN_PATH}/bin_symlinks
             echo "Detected user entered custom path for binaries: ${MAIN_BIN_PATH}"
+            ;;
+        d)
+            DELETE_MODE=true
             ;;
         l) 
             LIST_BINARIES=true
