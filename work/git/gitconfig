@@ -10,6 +10,7 @@
 	email = 3782943-mshiroma14@users.noreply.gitlab.com
 [core]
 	editor = vim
+	ignorecase = true
 [credential]
 	helper = store
 [alias]
