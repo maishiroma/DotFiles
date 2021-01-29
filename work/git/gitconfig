@@ -18,3 +18,9 @@
 	## Parameters: N= Number of commits to squash into, inclusive
 	# Ex: git squash 2
 	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+[diff]
+  	tool = icdiff
+[difftool]
+  	prompt = false
+[difftool "icdiff"]
+  	cmd = icdiff --highlight --line-numbers $LOCAL $REMOTE | less -
