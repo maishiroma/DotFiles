@@ -140,6 +140,7 @@ alias 2dot="cd /Users/mshiroma/Documents/PersonalProjects/DotFiles"
 alias 2pyenv="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training/pythonGrounds"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
+alias icdiff="icdiff --highlight --line-numbers"
 
 ### Functions
 
