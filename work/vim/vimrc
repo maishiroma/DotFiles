@@ -28,7 +28,7 @@ set wrapmargin=0
 set formatoptions-=t
 set backupdir=~/.vim/backup
 
-"Remappinh Arrow keys for usage in insert
+"Remapping Arrow keys for usage in insert
 inoremap <Esc>A <up>
 inoremap <Esc>B <down>
 inoremap <Esc>C <right>

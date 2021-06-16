@@ -180,6 +180,11 @@ function tfcmdcp() {
   rm tfoutput.txt 
 }
 
+# Shortcut to switch python venvs fast
+function pyvenv() {
+    source ~/.python_venvs/$1/bin/activate
+}
+
 # Start up commands
 tmux new -A -s work > /dev/null 2>&1
 eval "$(rbenv init -)"
