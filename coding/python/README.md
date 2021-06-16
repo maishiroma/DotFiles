@@ -20,7 +20,7 @@ source ~/.python_venvs/NameOfVirtalEnv/bin/activate
 3. Install packages via `pip`
 
 ```bash
-cd ~/mydotfiles/coding/python # something like this
+cd ~/mydotfiles/coding/python/EnvName # something like this
 pip install -r nameOfReq.txt # Select the one to use!
 ```
 
