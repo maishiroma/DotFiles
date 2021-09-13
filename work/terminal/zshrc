@@ -144,6 +144,7 @@ alias 2pyenv="cd /Users/mshiroma/Documents/CompanyProjects/Internal/Training/pyt
 alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
+alias gbranchp="git branch --merged | egrep -v '(^\*|master|RC)' | xargs git branch -D"
 
 ### Functions
 
