@@ -12,10 +12,6 @@ export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 # MySQL Setup
 export PATH=/usr/local/mysql/bin:$PATH
 
-# Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-
 # standalone bin symlinks
 export PATH="/Users/matthewshiroma/CLI_Tools/bin_symlinks:${PATH}"
 
