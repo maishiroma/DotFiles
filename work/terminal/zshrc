@@ -29,6 +29,9 @@ if [ -f '/Users/mshiroma/plugins/google-cloud-sdk/path.zsh.inc' ]; then . '/User
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/mshiroma/plugins/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mshiroma/plugins/google-cloud-sdk/completion.zsh.inc'; fi
 
+# AWS Global Vars
+export AWS_PAGER=""
+
 # CLI Tools/Binaries Path
 export PATH="/Users/mshiroma/CLI_Tools/bin_symlinks:${PATH}"
 
