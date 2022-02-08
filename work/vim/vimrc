@@ -18,6 +18,7 @@ set noswapfile
 set noundofile
 set backspace=indent,eol,start
 set spell spelllang=en_us
+set re=2
 
 " Word Wrapping
 set wrap

@@ -148,6 +148,7 @@ alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
 alias gbranchp="git branch --merged | egrep -v '(^\*|master|RC)' | xargs git branch -D"
+alias tf12_31="/Users/mshiroma/CLI_Tools/terraform_0.12.31"
 
 ### Functions
 
