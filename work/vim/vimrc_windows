@@ -1,7 +1,6 @@
 " This is used specifically for using Vim on Windows
 syntax on
 filetype plugin indent on
-colorscheme iceberg
 
 set autoindent
 set expandtab
@@ -22,15 +21,8 @@ set wrapmargin=0
 set formatoptions-=t
 
 "Backup Directory
-set backupdir=~/vimfiles/backup
+set backupdir=~/.vim/backup
 
 "Stop screen from flashing
 set visualbell
 set t_vb=
-
-""" Vim Plugins 
-execute pathogen#infect()
-
-" Vim Terraform
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1

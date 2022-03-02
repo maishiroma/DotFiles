@@ -6,11 +6,12 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Matthew Shiroma
-	email = 3782943-mshiroma14@users.noreply.gitlab.com
+	name = mattyshiro14
+	email = 100616595+mattyshiro14@users.noreply.github.com
 [core]
 	editor = vim
 	ignorecase = true
+    autocrlf = false
 [credential]
 	helper = store
 [alias]
