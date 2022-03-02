@@ -1,0 +1,27 @@
+# Installing bleh.sh
+[[ $- == *i* ]] && source ~/.local/share/blesh/ble.sh --attach=none
+
+# Aliases
+alias hgrep="history | grep"
+alias clearls="clear && ls"
+
+# Functions
+
+# Allows one to look and search for specific keywords passed into grep
+function sgrep() { grep -Hurn "$@" .; }
+
+# cds into a directory and lists out the files in it
+function cdls() { cd "$@"; ls; }
+
+# A quick and dirty way to get X number of buffer lines in the current tmux pane
+# Takes in an argument; if none passed, will just take 9 lines by default
+function tmuxcpy() {
+  if [ -z ${0} ]; then
+      tmux capture-pane -pS -11 | pbcopy
+  else
+      tmux capture-pane -pS -${0} | pbcopy
+  fi
+}
+
+# Installing bleh.sh
+[[ ${BLE_VERSION-} ]] && ble-attach
