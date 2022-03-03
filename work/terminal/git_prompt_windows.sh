@@ -4,7 +4,9 @@
 PS1='\[\033]0;$TITLEPREFIX:\W\007\]' # set window title
 PS1="$PS1"'\n'                 # new line
 PS1="$PS1"'\[\033[32m\]'       # change to green
-PS1="$PS1"'mattyshiro '         # user@host<space>
+PS1="$PS1"'mattyshiro'        # username
+PS1="$PS1"'\[\033[35m\]'       # change to purple
+PS1="$PS1"'@'                  # show MSYSTEM
 PS1="$PS1"'\[\033[33m\]'       # change to brownish yellow
 PS1="$PS1"'\W'                 # current working directory
 if test -z "$WINELOADERNOEXEC"
@@ -22,5 +24,4 @@ then
 	fi
 fi
 PS1="$PS1"'\[\033[0m\]'        # change color
-PS1="$PS1"'\n'                 # new line
-PS1="$PS1"'> '                 # prompt: always $
+PS1="$PS1"' -> '               # prompt: always $

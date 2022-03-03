@@ -3,6 +3,10 @@
 # NodeJS Path
 export PATH="$PATH:/c/Program Files/nodejs"
 
+# Bash Plugin for Git Status and Custom Prompt
+# https://github.com/romkatv/gitstatus#using-from-bash
+source ~/.config/git/gitstatus/gitstatus.prompt.sh
+
 # Aliases
 alias hgrep="history | grep"
 alias clearls="clear && ls"
@@ -35,3 +39,6 @@ function pyvenv() {
 function refresh_all() {
     source ~/.bashrc && source ~/.bash_profile && tmux source-file ~/.tmux.conf
 }
+
+# Rewriting the bash prompt
+PS1='\[\033[32m\]maishiroma\[\033[35m\]@${MSYSTEM}\[\033[34m\] \w ${GITSTATUS_PROMPT}\n\[\033[37m\]-> '
