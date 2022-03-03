@@ -1,3 +1,8 @@
+# PATH Additions
+
+# NodeJS Path
+export PATH="$PATH:/c/Program Files/nodejs"
+
 # Aliases
 alias hgrep="history | grep"
 alias clearls="clear && ls"
