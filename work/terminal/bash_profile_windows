@@ -2,3 +2,25 @@
 test -f ~/.profile && . ~/.profile
 test -f ~/.bashrc && . ~/.bashrc
 
+## PATH Additions
+
+# NodeJS Path 
+export PATH="$PATH:/c/Program Files/nodejs"
+
+# Python3 pip packages PATH
+export PATH="$PATH:/c/Users/matthew.shiroma/AppData/Roaming/Python/Python37/Scripts"
+
+# AWS Path
+export PATH="$PATH:/c/Program Files/Amazon/AWSCLIV2"
+
+## Env Vars
+
+export PROMPT_DIRTRIM=1 # Shortens the `\w` to only have specific number of dirs
+
+## Startup Commands
+
+# If we are using Mintty, we run the following startup commands
+if [ ${TERM_PROGRAM} == "mintty" ]; then
+    cd ~
+    tmux new -A -s work > /dev/null
+fi

@@ -1,19 +1,15 @@
-# PATH Additions
+## Custom Sourcing
 
-# NodeJS Path 
-export PATH="$PATH:/c/Program Files/nodejs"
-
-# Python3 pip packages  
-export PATH="$PATH:/c/Users/matthew.shiroma/AppData/Roaming/Python/Python37/Scripts"
+# Disable XON/XOFF
+# This is handy when using CTRL+R/CTRL+s to search through history
+stty -ixon
 
 # Bash Plugin for Git Status and Custom Prompt
 # https://github.com/romkatv/gitstatus#using-from-bash
 source ~/.config/git/gitstatus/gitstatus.prompt.sh
 
-# Env Vars
-export PROMPT_DIRTRIM=1 # Shortens the `\w` to only have specific number of dirs
+## Aliases
 
-# Aliases
 alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias 2dot="cd ~/Documents/PersonalProjects/GitHub/DotFiles"
@@ -21,7 +17,7 @@ alias python="winpty python"
 
 alias ..="cd .."
 
-# Functions
+## Functions
 
 # Allows one to look and search for specific keywords passed into grep
 function sgrep() { grep -Hurn "$@" .; }
@@ -49,11 +45,7 @@ function refresh_all() {
     source ~/.bashrc && source ~/.bash_profile && tmux source-file ~/.tmux.conf
 }
 
+## Bash Overrides
+
 # Rewriting the bash prompt
 PS1='\[\033[32m\]maishiroma\[\033[35m\]@${MSYSTEM}\[\033[34m\] \w ${GITSTATUS_PROMPT}\n\[\033[37m\]-> '
-
-# Startup Commands
-if [ ${TERM_PROGRAM} == "mintty" ]; then
-    cd ~
-    tmux new -A -s work > /dev/null
-fi
