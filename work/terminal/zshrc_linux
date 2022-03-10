@@ -1,0 +1,151 @@
+#### Work .zshrc 
+# My current Terminal configuration defined here.
+# Most of it is from the default .zshrc from Oh-My-Zsh!
+# AWS Global Vars
+export AWS_PAGER=""
+
+# CLI Tools/Binaries Path
+export PATH="/home/mattyshiro14/CLI_Tools/bin_symlinks:${PATH}"
+
+# Path to your oh-my-zsh installation.
+export ZSH="/home/mattyshiro14/.oh-my-zsh"
+
+# Path to download and cache Terraform Providers
+export TF_PLUGIN_CACHE_DIR="/home/mattyshiro14/.terraform.d/plugins"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="half-life"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  zsh-autosuggestions
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+# To remove an alias: unalias ...
+alias tmux="TERM=screen-256color-bce tmux"
+alias 2dot="cd /home/mattyshiro14/GitHub/DotFiles"
+alias hgrep="history | grep"
+alias clearls="clear && ls"
+alias icdiff="icdiff --highlight --line-numbers"
+
+### Functions
+
+# Allows one to look and search for specific keywords passed into grep
+function sgrep() { grep -Hurn "$@" .; }
+
+# cds into a directory and lists out the files in it
+function cdls() { cd "$@"; ls; }
+
+# A quick and dirty way to get X number of buffer lines in the current tmux pane
+# Takes in an argument; if none passed, will just take 10 lines by default
+function tmuxcpy() {
+  if [ -z ${1} ]; then
+      tmux capture-pane -pS -10 | clip.exe # WSL2
+  else
+      tmux capture-pane -pS -${1} | clip.exe # WSL2
+  fi
+}
+
+# A simplifier command that takes the output of a terraform init/plan/apply and saves it to the clipboard.
+function tfcmdcp() {
+  touch tfoutput.txt
+  if [ -z "${1}" ]; then
+    echo "Need to pass either init/plan/apply"      
+  fi
+  terraform ${1} -no-color 2>&1 | tee -a tfoutput.txt
+  cat tfoutput.txt | clip.exe
+  rm tfoutput.txt 
+}
+
+# Shortcut to switch python venvs fast
+function pyvenv() {
+    source ~/.python_venvs/$1/bin/activate
+}
+
+# Start up commands
+tmux new -A -s work > /dev/null 2>&1

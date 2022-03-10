@@ -35,17 +35,6 @@ inoremap <Esc>B <down>
 inoremap <Esc>C <right>
 inoremap <Esc>D <left>
 
-execute pathogen#infect()
-
-""" Vim Plugins 
-
-" Vim Markdown Plugin
-let vim_markdown_preview_github=1
-
-" Vim Terraform
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
-
 " Smooth Scrolling
 noremap <silent> <c-k> :call smooth_scroll#up(&scroll, 0, 1)<CR>
 noremap <silent> <c-j> :call smooth_scroll#down(&scroll, 0, 1)<CR>
