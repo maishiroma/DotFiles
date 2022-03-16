@@ -138,13 +138,8 @@ function tfcmdcp() {
     echo "Need to pass either init/plan/apply"      
   fi
   terraform ${1} -no-color 2>&1 | tee -a tfoutput.txt
-  cat tfoutput.txt | clip.exe
+  cat tfoutput.txt | clip.exe #WSL2
   rm tfoutput.txt 
-}
-
-# Shortcut to switch python venvs fast
-function pyvenv() {
-    source ~/.python_venvs/$1/bin/activate
 }
 
 # Start up commands

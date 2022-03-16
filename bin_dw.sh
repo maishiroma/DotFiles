@@ -31,7 +31,7 @@ EOF
 # WIP (only tested on Mac and Windows (Git Bash))
 os_finder() {
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "linux"
+        echo "linux_amd64"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         echo "darwin_amd64"
     elif [[ "$OSTYPE" == "cygwin" ]]; then
