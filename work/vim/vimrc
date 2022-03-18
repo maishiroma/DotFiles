@@ -1,4 +1,4 @@
-" My work .vimrc configuration
+" My work .vimrc configuration (MacOS, WSL2)
 " A bit obsolete, since I switched to VSCode, but still relevant!
 
 " This is the basic vimrc that I will use for whenever vim is available
