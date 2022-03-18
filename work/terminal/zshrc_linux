@@ -13,6 +13,11 @@ export ZSH="/home/mattyshiro14/.oh-my-zsh"
 # Path to download and cache Terraform Providers
 export TF_PLUGIN_CACHE_DIR="/home/mattyshiro14/.terraform.d/plugins"
 
+# This is a WSL issue; need to set this as well as making sure to run a cleanup script
+# See https://github.com/microsoft/vscode-remote-release/issues/6362#issuecomment-1047851356
+export VSCODE_IPC_HOOK_CLI="$( ls 2>/dev/null -1 -t /tmp/vscode-ipc-*.sock | head -n 1 )"  # needed to be able to open files in VS Code's editor from the command line
+export SSH_AUTH_SOCK="$( \ls 2>/dev/null -1 -t /tmp/vscode-ssh-auth-*.sock | head -n 1 )"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
