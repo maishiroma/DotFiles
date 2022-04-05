@@ -7,6 +7,9 @@ export AWS_PAGER=""
 # CLI Tools/Binaries Path
 export PATH="/home/mattyshiro14/CLI_Tools/bin_symlinks:${PATH}"
 
+# Local Bin Path
+export PATH="/home/mattyshiro14/.local/bin:${PATH}"
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/mattyshiro14/.oh-my-zsh"
 
@@ -70,6 +73,9 @@ ZSH_THEME="half-life"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Ignores commands that start with spaces
+setopt HIST_IGNORE_SPACE
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -145,6 +151,19 @@ function tfcmdcp() {
   terraform ${1} -no-color 2>&1 | tee -a tfoutput.txt
   cat tfoutput.txt | clip.exe #WSL2
   rm tfoutput.txt 
+}
+
+# Shortcut to switch python venvs fast
+function pyvenv() {
+    source ~/.python_venvs/$1/bin/activate
+}
+
+# shortcut to perform workaround to get VS code to work nicely with WSL
+function pvc() {
+    cd ~/.config/scripts
+    ./clean.sh
+    source ~/.zshrc
+    cd -
 }
 
 # Start up commands
