@@ -8,6 +8,15 @@ stty -ixon
 # https://github.com/romkatv/gitstatus#using-from-bash
 source ~/.config/git/gitstatus/gitstatus.prompt.sh
 
+## PATH Additions
+
+# Python3 pip packages PATH
+export PATH="/c/Users/matthew.shiroma/AppData/Roaming/Python/Python37/Scripts:${PATH}"
+
+## Env Vars
+
+export PROMPT_DIRTRIM=1 # Shortens the `\w` to only have specific number of dirs
+
 ## Aliases
 
 alias hgrep="history | grep"
@@ -37,12 +46,12 @@ function tmuxcpy() {
 
 # Shortcut to switch python venvs fast
 function pyvenv() {
-    source ~/bin/.python_venvs/$1/Scripts/activate
+    source ~/.python_venvs/$1/Scripts/activate
 }
 
 # Sources all configs
 function refresh_all() {
-    source ~/.bashrc && source ~/.bash_profile && tmux source-file ~/.tmux.conf
+    source ~/.bashrc && source ~/.bash_profile
 }
 
 ## Bash Overrides
