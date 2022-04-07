@@ -13,13 +13,11 @@ export PATH="/home/mattyshiro14/.local/bin:${PATH}"
 # Path to your oh-my-zsh installation.
 export ZSH="/home/mattyshiro14/.oh-my-zsh"
 
+# Path to Poetry installation
+export PATH="$HOME/.poetry/bin:$PATH"
+
 # Path to download and cache Terraform Providers
 export TF_PLUGIN_CACHE_DIR="/home/mattyshiro14/.terraform.d/plugins"
-
-# This is a WSL issue; need to set this as well as making sure to run a cleanup script
-# See https://github.com/microsoft/vscode-remote-release/issues/6362#issuecomment-1047851356
-export VSCODE_IPC_HOOK_CLI="$( ls 2>/dev/null -1 -t /tmp/vscode-ipc-*.sock | head -n 1 )"  # needed to be able to open files in VS Code's editor from the command line
-export SSH_AUTH_SOCK="$( \ls 2>/dev/null -1 -t /tmp/vscode-ssh-auth-*.sock | head -n 1 )"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -123,6 +121,7 @@ alias 2dot="cd /home/mattyshiro14/GitHub/DotFiles"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
+alias aws="aws.exe"
 
 ### Functions
 
@@ -166,5 +165,17 @@ function pvc() {
     cd -
 }
 
-# Start up commands
-tmux new -A -s work > /dev/null 2>&1
+## Start up commands
+if [ ! -z "${TERM_PROGRAM}" ]; then
+    # Runs commands if in VS code integrated terminal or not
+    if [ ${TERM_PROGRAM} = "vscode" ]; then
+        # This is a WSL issue; need to set this as well as making sure to run a cleanup script
+        # See https://github.com/microsoft/vscode-remote-release/issues/6362#issuecomment-1047851356
+        export SSH_AUTH_SOCK="$( \ls 2>/dev/null -1 -t /tmp/vscode-ssh-auth-*.sock | head -n 1 )"
+        ## needed to be able to open files in VS Code's editor from the command line
+        export VSCODE_IPC_HOOK_CLI="$( \ls 2>/dev/null -1 -t /tmp/vscode-ipc-*.sock | head -n 1 )"
+    fi
+else
+    # If we are running in a standard terminal
+    tmux new -A -s work > /dev/null 2>&1
+fi
