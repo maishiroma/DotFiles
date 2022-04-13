@@ -1,4 +1,5 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [
         {
@@ -28,7 +29,7 @@
     "alwaysShowTabs": false,
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{74dbafe6-6f77-4f7f-bd65-3abf35720a17}",
+    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
     "disableAnimations": false,
     "launchMode": "maximized",
     "profiles": {
@@ -39,8 +40,7 @@
                 "backgroundImageOpacity": 0.20000000000000001,
                 "bellStyle": "none",
                 "closeOnExit": "always",
-                "colorScheme": "One Half Dark",
-                "commandline": "powershell.exe",
+                "colorScheme": "Tango Dark",
                 "font": {
                     "face": "Fira Code Retina",
                     "size": 10
@@ -55,7 +55,6 @@
                 "tabTitle": "PowerShell"
             },
             {
-                "commandline": "cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": true,
                 "name": "Command Prompt"
@@ -106,6 +105,18 @@
                 "snapOnInput": true,
                 "startingDirectory": "C:\\Users\\matthew.shiroma",
                 "tabTitle": "Git Bash"
+            },
+            {
+                "guid": "{f96416b1-1ba9-5223-b4d7-9ec8cc54576b}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{7a31639a-2161-5bd3-a32d-e694b52001e6}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
@@ -318,7 +329,7 @@
             "yellow": "#808000"
         }
     ],
-    "startOnUserLogin": false,
+    "startOnUserLogin": true,
     "tabWidthMode": "titleLength",
     "theme": "dark"
 }
