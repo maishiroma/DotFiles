@@ -122,6 +122,7 @@ alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
 alias aws="aws.exe"
+alias pbcopy="clip.exe"
 
 ### Functions
 
