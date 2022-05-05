@@ -1,6 +1,7 @@
 #### Work .zshrc (WSL2)
 # My current Terminal configuration defined here.
 # Most of it is from the default .zshrc from Oh-My-Zsh!
+
 # AWS Global Vars
 export AWS_PAGER=""
 
@@ -121,7 +122,6 @@ alias 2dot="cd /home/mattyshiro14/GitHub/DotFiles"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
-alias aws="aws.exe"
 alias pbcopy="clip.exe"
 
 ### Functions
