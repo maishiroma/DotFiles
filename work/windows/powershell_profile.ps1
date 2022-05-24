@@ -2,6 +2,8 @@
 # Autosuggestions in Powerline
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
 # Dracula theme: https://draculatheme.com/powershell
 # Dracula readline configuration. Requires version 2.0, if you have 1.2 convert to `Set-PSReadlineOption -TokenType`
@@ -22,7 +24,13 @@ $GitPromptSettings.DefaultPromptPrefix.Text = "$([char]0x2192) " # arrow unicode
 $GitPromptSettings.DefaultPromptPrefix.ForegroundColor = [ConsoleColor]::Green
 $GitPromptSettings.DefaultPromptPath.ForegroundColor =[ConsoleColor]::Cyan
 $GitPromptSettings.DefaultPromptSuffix.Text = "$([char]0x203A) " # chevron unicode symbol
-$GitPromptSettings.DefaultPromptSuffix.ForegroundColor = [ConsoleColor]::Magenta
+$GitPromptSettings.DefaultPromptSuffix.ForegroundColor = [ConsoleColor]::DarkYellow
+
+$GitPromptSettings.DefaultPromptPrefix.Text = '$(Get-Date -f "MM-dd HH:mm") '
+$GitPromptSettings.DefaultPromptPrefix.ForegroundColor = [ConsoleColor]::DarkMagenta
+$GitPromptSettings.DefaultPromptBeforeSuffix.Text = '`n'
+$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
+$GitPromptSettings.DefaultPromptAbbreviateGitDirectory = $true
 
 # Dracula Git Status Configuration
 $GitPromptSettings.BeforeStatus.ForegroundColor = [ConsoleColor]::Blue
