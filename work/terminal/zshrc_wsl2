@@ -20,6 +20,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # Path to download and cache Terraform Providers
 export TF_PLUGIN_CACHE_DIR="/home/mattyshiro14/.terraform.d/plugins"
 
+# Needed for see alias to work
+export BROWSER='/mnt/c/Windows/explorer.exe'
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -122,7 +125,8 @@ alias 2dot="cd /home/mattyshiro14/GitHub/DotFiles"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
-alias pbcopy="clip.exe"
+alias pbcopy="/mnt/c/Windows/system32/clip.exe"
+alias see="/mnt/c/Windows/explorer.exe"
 
 ### Functions
 
