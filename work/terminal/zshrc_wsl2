@@ -23,6 +23,9 @@ export TF_PLUGIN_CACHE_DIR="/home/mattyshiro14/.terraform.d/plugins"
 # Needed for see alias to work
 export BROWSER='/mnt/c/Windows/explorer.exe'
 
+# Sets up NVM
+export NVM_DIR="$HOME/.nvm"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -184,3 +187,7 @@ else
     # If we are running in a standard terminal
     tmux new -A -s work > /dev/null 2>&1
 fi
+
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
