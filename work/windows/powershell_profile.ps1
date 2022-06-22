@@ -1,3 +1,6 @@
+# Disable Sounds
+Set-PSReadlineOption -BellStyle None
+
 # https://dev.to/animo/fish-like-autosuggestion-in-powershell-21ec
 # Autosuggestions in Powerline
 Import-Module PSReadLine
@@ -36,6 +39,10 @@ $GitPromptSettings.DefaultPromptAbbreviateGitDirectory = $true
 $GitPromptSettings.BeforeStatus.ForegroundColor = [ConsoleColor]::Blue
 $GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::Blue
 $GitPromptSettings.AfterStatus.ForegroundColor = [ConsoleColor]::Blue
+
+
+# New Aliases
+Set-Alias -Name ".." -Value "cd.."
 
 # Adding specific paths to PATH (these are NOT permenant; these are specific to the specific shell)
 # This is done because we mostly use Git Bash; this path is already added to it
