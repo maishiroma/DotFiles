@@ -21,4 +21,4 @@
 	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
 [alias]
     # Cleanup all local branches that are merged to master or main
-    cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|main' | xargs -n 1 -r git branch -d"
+    cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|main' | xargs -n 1 -r git branch -d && git fetch origin --prune"
