@@ -131,6 +131,17 @@ alias icdiff="icdiff --highlight --line-numbers"
 alias pbcopy="/mnt/c/Windows/system32/clip.exe"
 alias see="/mnt/c/Windows/explorer.exe"
 
+alias gcm='git checkout $(git_default_branch)'
+alias gpm='git pull --rebase origin $(git_default_branch)'
+alias gcl='git cleanup'
+
+alias tfpdev='terraform plan -var=env=dev'
+alias tfpstg='terraform plan -var=env=stg'
+alias tfpprod='terraform plan -var=env=prod'
+alias tfadev='terraform apply -var=env=dev'
+alias tfastg='terraform apply -var=env=stg'
+alias tfaprod='terraform apply -var=env=prod'
+
 ### Functions
 
 # Allows one to look and search for specific keywords passed into grep
@@ -171,6 +182,11 @@ function pvc() {
     ./clean.sh
     source ~/.zshrc
     cd -
+}
+
+# Easy way to get the default branch of a repository
+function git_default_branch() {
+  (git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') 2>/dev/null
 }
 
 ## Start up commands

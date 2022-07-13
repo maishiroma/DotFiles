@@ -41,6 +41,14 @@ $GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::Blue
 $GitPromptSettings.AfterStatus.ForegroundColor = [ConsoleColor]::Blue
 
 
+# Functions
+function GDB() {
+    # Gets the default branch in a repo
+    $result = git symbolic-ref refs/remotes/origin/HEAD
+    $result = $result.replace("refs/remotes/origin/","")
+    $result
+}
+
 # New Aliases
 Set-Alias -Name ".." -Value "cd.."
 
