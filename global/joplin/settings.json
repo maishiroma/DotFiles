@@ -1,0 +1,69 @@
+{
+    "$schema": "https://joplinapp.org/schema/settings.json",
+    "locale": "en_US",
+    "markdown.plugin.softbreaks": false,
+    "markdown.plugin.typographer": false,
+    "spellChecker.language": "en-US",
+    "ui.layout": {
+        "key": "root",
+        "children": [
+            {
+                "key": "noteList",
+                "visible": true,
+                "width": 191
+            },
+            {
+                "key": "tempContainer-pwjGK9aEnYEfkyxgzi4yC5",
+                "children": [
+                    {
+                        "key": "plugin-view-joplin.plugin.note.tabs-note.tabs.panel",
+                        "context": {
+                            "pluginId": "joplin.plugin.note.tabs"
+                        },
+                        "visible": true,
+                        "height": 59
+                    },
+                    {
+                        "key": "editor",
+                        "visible": true
+                    }
+                ],
+                "visible": true,
+                "width": 780
+            },
+            {
+                "key": "sideBar",
+                "visible": true
+            }
+        ],
+        "visible": true
+    },
+    "noteVisiblePanes": [
+        "editor"
+    ],
+    "editor.codeView": true,
+    "spellChecker.enabled": true,
+    "timeFormat": "h:mm A",
+    "theme": 2,
+    "dateFormat": "MM/DD/YYYY",
+    "uncompletedTodosOnTop": false,
+    "showCompletedTodos": false,
+    "notes.sortOrder.field": "order",
+    "style.editor.fontSize": 16,
+    "style.editor.fontFamily": "montserrat",
+    "layoutButtonSequence": 0,
+    "editor.keyboardMode": "vim",
+    "clipperServer.autoStart": false,
+    "sync.interval": 43200,
+    "autoUpdateEnabled": false,
+    "style.editor.contentMaxWidth": 0,
+    "showNoteCounts": false,
+    "notes.sortOrder.reverse": true,
+    "sync.target": 7,
+    "style.editor.monospaceFontFamily": "cascadia mono",
+    "notes.sortOrder.buttonsVisible": false,
+    "markdown.plugin.sub": true,
+    "markdown.plugin.sup": true,
+    "markdown.plugin.abbr": true,
+    "markdown.plugin.insert": true
+}
