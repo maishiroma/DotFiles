@@ -43,3 +43,7 @@ Can just be placed in the root of the config folder.
         1. Divider color (#93bf74)
 - **Markdown Prettier**
     - No additional configuration
+- **Outline**
+  1. Disable Linewrap
+  2. Collapsible
+  3. Font Weight (Lighter)
