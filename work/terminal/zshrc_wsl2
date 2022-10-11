@@ -141,6 +141,9 @@ alias tfpprod='terraform plan -var=env=prod'
 alias tfadev='terraform apply -var=env=dev'
 alias tfastg='terraform apply -var=env=stg'
 alias tfaprod='terraform apply -var=env=prod'
+alias tfddev='terraform destroy -var=env=dev'
+alias tfdstg='terraform destroy -var=env=stg'
+alias tfdprod='terraform destroy -var=env=prod'
 
 ### Functions
 
