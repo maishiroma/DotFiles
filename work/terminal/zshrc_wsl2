@@ -211,6 +211,26 @@ function pvc() {
     cd -
 }
 
+# Shortcut to assume a IAM role on the CLI
+# Requires the role ARN to be passed in
+function awsrolestart() {
+    result=$(aws sts assume-role --role-arn $1 --role-session-name "AWSCLI-RoleAssume-mattyshiro14")
+    export AWS_ACCESS_KEY_ID=$(echo $result | jq -r ".Credentials.AccessKeyId")
+    export AWS_SECRET_ACCESS_KEY=$(echo $result | jq -r ".Credentials.SecretAccessKey")
+    export AWS_SESSION_TOKEN=$(echo $result | jq -r ".Credentials.SessionToken")
+    unset AWS_PROFILE
+    aws --no-paginate sts get-caller-identity --output json
+}
+
+# Shortcut to stop using a role and revert back to my personal profile
+function awsrolestop() {
+    unset AWS_ACCESS_KEY_ID
+    unset AWS_SECRET_ACCESS_KEY
+    unset AWS_SESSION_TOKEN
+    export AWS_PROFILE="personal"
+    aws --no-paginate sts get-caller-identity --output json
+}
+
 # Easy way to get the default branch of a repository
 function git_default_branch() {
   (git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') 2>/dev/null
