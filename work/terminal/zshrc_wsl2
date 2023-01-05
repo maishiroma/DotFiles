@@ -130,6 +130,7 @@ alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
 alias pbcopy="/mnt/c/Windows/system32/clip.exe"
 alias see="/mnt/c/Windows/explorer.exe"
+alias python="python3"
 
 alias gcm='git checkout $(git_default_branch)'
 alias gpm='git pull --rebase origin $(git_default_branch)'
