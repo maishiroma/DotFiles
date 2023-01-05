@@ -1,0 +1,86 @@
+{
+    "editor.fontSize": 14,
+    "editor.fontFamily": "Fira Code",
+    "editor.wordWrap": "on",
+    "workbench.statusBar.visible": true,
+    "editor.minimap.enabled": false,
+    "editor.autoClosingBrackets": "always",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.formatOnPaste": true,
+    "editor.cursorBlinking": "smooth",
+    "terminal.integrated.cursorBlinking": true,
+    "window.zoomLevel": 0,
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "terminal.integrated.fontSize": 14,
+    "vim.vimrc.enable": true,
+    "explorer.confirmDragAndDrop": false,
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "city-lights-icons-vsc-light",
+    "terminal.explorerKind": "external",
+    "terminal.external.osxExec": "iTerm.app",
+    "workbench.startupEditor": "newUntitledFile",
+    "markdown.preview.scrollPreviewWithEditor": false,
+    "markdown.preview.scrollEditorWithPreview": false,
+    "extensions.ignoreRecommendations": true,
+    "workbench.colorTheme": "Tomorrow Night Blue",
+    "markdownlint.config": {
+        "heading-style": {
+            "style": "atx"
+        },
+        "ul-style": {
+            "style": "dash"
+        },
+        "ul-start-left": true,
+        "ul-indent": {
+            "indent": 4,
+        },
+        "no-hard-tabs": {
+            "code_blocks": false
+        },
+        "no-multiple-blanks": {
+            "maximum": 1
+        },
+        "blanks-around-headers": {
+            "lines_above": 1,
+            "lines_below": 0
+        },
+        "no-inline-html": {
+            "allowed_elements": [
+                "details",
+                "summary",
+                "/details",
+                "/summary",
+            ]
+        },
+        "single-trailing-newline": false,
+        "no-duplicate-header": false,
+        "blanks-around-lists": false
+    },
+    "editor.detectIndentation": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDelete": false,
+    "terminal.integrated.fontFamily": "Fira Code",
+    "runOnSave.commands": [
+        {
+            "match": ".*\\.tf$",
+            "command": "terraform fmt -no-color ${file}",
+            "runIn": "backend",
+            "runningStatusMessage": "linting ${fileBasename}...",
+            "finishStatusMessage": "${fileBasename} linted sucessfully!"
+        },
+        {
+            "match": ".*\\.py$",
+            "command": " if [ ${OSTYPE} = 'msys' ]; then source ~/.python_venvs/Linting/Scripts/activate; else source ~/.python_venvs/Linting/bin/activate; fi && cd ${fileDirname} && isort ${fileBasename} && echo && black ${fileBasename} && echo && pylint --exit-zero ${fileBasename} && deactivate",
+            "runIn": "terminal",
+            "forcePathSeparator": "/"
+        },
+    ],
+    "files.eol": "\n",
+    "terminal.integrated.allowChords": false,
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "vim.useCtrlKeys": false,
+    "vim.overrideCopy": false,
+    "cSpell.userWords": [
+        "approperiate"
+    ],
+}
