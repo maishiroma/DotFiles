@@ -1,0 +1,4 @@
+DavidAnson.vscode-markdownlint@0.48.1
+ollyhayes.colmak-vim@1.23.2
+streetsidesoftware.code-spell-checker@2.12.0
+Yummygum.city-lights-icon-vsc@1.1.3
