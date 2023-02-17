@@ -32,7 +32,7 @@
         },
         "ul-start-left": true,
         "ul-indent": {
-            "indent": 4
+            "indent": 4,
         },
         "no-hard-tabs": {
             "code_blocks": false
@@ -49,14 +49,13 @@
                 "details",
                 "summary",
                 "/details",
-                "/summary"
+                "/summary",
             ]
         },
         "single-trailing-newline": false,
         "no-duplicate-header": false,
         "blanks-around-lists": false
     },
-    "editor.detectIndentation": false,
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDelete": false,
     "terminal.integrated.fontFamily": "Fira Code",
@@ -79,6 +78,13 @@
             "command": "if [ ${OSTYPE} = 'msys' ]; then source ~/.python_venvs/Linting/Scripts/activate; else source ~/.python_venvs/Linting/bin/activate; fi && mdformat ${fileDirname}/${fileBasename} && deactivate",
             "runIn": "terminal",
             "forcePathSeparator": "/"
+        },
+        {
+            "match": ".*\\.hcl",
+            "command": "packer fmt ${file}",
+            "runIn": "backend",
+            "runningStatusMessage": "linting ${fileBasename}...",
+            "finishStatusMessage": "${fileBasename} linted successfully!"
         }
     ],
     "terminal.integrated.profiles.windows": {
@@ -98,5 +104,14 @@
     "cSpell.userWords": [
         "approperiate"
     ],
-    "editor.renderWhitespace": "all"
+    "editor.renderWhitespace": "all",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.shellcheck": true
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "editor.indentSize": "tabSize",
+    "editor.detectIndentation": false,
+    "[dockercompose]": {
+        "editor.tabSize": 4
+    }
 }
