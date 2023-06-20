@@ -14,7 +14,6 @@
     "terminal.integrated.fontSize": 14,
     "vim.vimrc.enable": true,
     "explorer.confirmDragAndDrop": false,
-    "editor.formatOnSave": true,
     "workbench.iconTheme": "city-lights-icons-vsc-light",
     "terminal.explorerKind": "external",
     "terminal.external.osxExec": "iTerm.app",
@@ -22,7 +21,7 @@
     "markdown.preview.scrollPreviewWithEditor": false,
     "markdown.preview.scrollEditorWithPreview": false,
     "extensions.ignoreRecommendations": true,
-    "workbench.colorTheme": "Tomorrow Night Blue",
+    "workbench.colorTheme": "Abyss",
     "markdownlint.config": {
         "heading-style": {
             "style": "atx"
@@ -61,7 +60,7 @@
     "terminal.integrated.fontFamily": "Fira Code",
     "runOnSave.commands": [
         {
-            "match": ".*\\.tf$",
+            "match": ".*\\.tf",
             "command": "terraform fmt -no-color ${file}",
             "runIn": "backend",
             "runningStatusMessage": "linting ${fileBasename}...",
@@ -69,13 +68,13 @@
         },
         {
             "match": ".*\\.py$",
-            "command": "if [ ${OSTYPE} = 'msys' ]; then source ~/.python_venvs/Linting/Scripts/activate; else source ~/.python_venvs/Linting/bin/activate; fi && isort ${fileDirname}/${fileBasename} && echo && black ${fileDirname}/${fileBasename} && echo && pylint --exit-zero ${fileDirname}/${fileBasename} && deactivate",
+            "command": "isort ${file} && echo && black ${file} && echo && pylint --exit-zero ${file}",
             "runIn": "terminal",
             "forcePathSeparator": "/"
         },
         {
             "match": ".*\\.md$",
-            "command": "if [ ${OSTYPE} = 'msys' ]; then source ~/.python_venvs/Linting/Scripts/activate; else source ~/.python_venvs/Linting/bin/activate; fi && mdformat ${fileDirname}/${fileBasename} && deactivate",
+            "command": "mdformat ${file}",
             "runIn": "terminal",
             "forcePathSeparator": "/"
         },
@@ -113,5 +112,9 @@
     "editor.detectIndentation": false,
     "[dockercompose]": {
         "editor.tabSize": 4
-    }
+    },
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.envFile": "/home/mattyshiro14/.python_venvs",
+    "python.linting.lintOnSave": false,
+    "python.linting.enabled": false,
 }

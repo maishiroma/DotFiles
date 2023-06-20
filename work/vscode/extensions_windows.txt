@@ -1,6 +1,9 @@
-DavidAnson.vscode-markdownlint@0.48.1
-ms-vscode-remote.remote-wsl@0.72.0
+DavidAnson.vscode-markdownlint@0.51.0
+hashicorp.hcl@0.3.2
+ms-python.python@2023.10.1
+ms-python.vscode-pylance@2023.6.20
+natqe.reload@0.0.6
 pucelle.run-on-save@1.5.1
-streetsidesoftware.code-spell-checker@2.12.0
-vscodevim.vim@1.24.3
+streetsidesoftware.code-spell-checker@2.20.5
+timonwong.shellcheck@0.32.6
 Yummygum.city-lights-icon-vsc@1.1.3
