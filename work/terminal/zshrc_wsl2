@@ -201,7 +201,14 @@ function tfinit() {
 
 # Shortcut to switch python venvs fast
 function pyvenv() {
-    source ~/.python_venvs/$1/bin/activate
+    curr_python_env=$(python --version | cut -d ' '  -f 2)
+    if [[ "$curr_python_env" == *"3.11"* ]]; then 
+        source ~/.python_venvs/3.11/$1/bin/activate
+    elif [[ "$curr_python_env" == *"3.8"* ]]; then 
+        source ~/.python_venvs/3.8/$1/bin/activate
+    else
+        source ~/.python_venvs/default/$1/bin/activate
+    fi
 }
 
 # shortcut to perform workaround to get VS code to work nicely with WSL
