@@ -5,22 +5,64 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 [user]
-	name = mattyshiro14
+	name = Matthew Shiroma
 	email = 100616595+mattyshiro14@users.noreply.github.com
+
 [core]
 	editor = vim
 	ignorecase = true
-	autocrlf = false
+	autocrlf = true
+    # Using Delta for git diff https://dandavison.github.io/delta/configuration.html
+    pager = delta
+
 [credential]
 	helper = store
+
+[interactive]
+    diffFilter = delta --color-only
+
 [alias]
 	# Shortcut command to combine both rebase and fixup all in one line
 	## Parameters: N= Number of commits to squash into, inclusive
 	# Ex: git squash 2
 	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+
 [alias]
     # Cleanup all local branches that are merged to master or main
     cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|main' | xargs -n 1 -r git branch -d && git fetch origin --prune"
+
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
+
+[merge]
+    tool = kdiff3
+    conflictstyle = diff3
+
+[mergetool "kdiff3"]
+    path = C:/Program Files/KDiff3/kdiff3.exe
+    trustExitCode = false
+
+[diff]
+    tool = delta
+    colorMoved = default
+    prompt = false
+
+[delta]
+    features = decorations
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
