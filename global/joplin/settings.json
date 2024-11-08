@@ -1,19 +1,57 @@
 {
     "$schema": "https://joplinapp.org/schema/settings.json",
-    "locale": "en_US",
+    "editor.codeView": true,
+    "sync.target": 7,
+    "locale": "en_GB",
+    "dateFormat": "MM/DD/YYYY",
+    "timeFormat": "h:mm A",
+    "theme": 2,
+    "themeAutoDetect": false,
+    "showNoteCounts": false,
+    "uncompletedTodosOnTop": false,
+    "showCompletedTodos": false,
+    "notes.sortOrder.reverse": true,
+    "notes.sortOrder.buttonsVisible": false,
+    "notes.perFieldReverse": {
+        "user_updated_time": true,
+        "user_created_time": true,
+        "title": false,
+        "order": false
+    },
     "markdown.plugin.softbreaks": false,
     "markdown.plugin.typographer": false,
-    "spellChecker.language": "en-US",
+    "markdown.plugin.sub": true,
+    "markdown.plugin.sup": true,
+    "markdown.plugin.abbr": true,
+    "markdown.plugin.insert": true,
+    "startMinimized": false,
+    "style.editor.fontSize": 16,
+    "style.editor.fontFamily": "Noto Sans",
+    "style.editor.monospaceFontFamily": "Roboto Mono",
     "ui.layout": {
         "key": "root",
         "children": [
             {
-                "key": "noteList",
+                "key": "tempContainer-qbgPlr3A5JQcszfn2uv0He",
+                "children": [
+                    {
+                        "key": "noteList",
+                        "visible": true,
+                        "height": 465
+                    },
+                    {
+                        "key": "plugin-view-outline-outline.panel",
+                        "context": {
+                            "pluginId": "outline"
+                        },
+                        "visible": true
+                    }
+                ],
                 "visible": true,
-                "width": 191
+                "width": 229
             },
             {
-                "key": "tempContainer-pwjGK9aEnYEfkyxgzi4yC5",
+                "key": "tempContainer-Uc7PC2Np2XTxEHgJjBeYSj",
                 "children": [
                     {
                         "key": "plugin-view-joplin.plugin.note.tabs-note.tabs.panel",
@@ -21,7 +59,7 @@
                             "pluginId": "joplin.plugin.note.tabs"
                         },
                         "visible": true,
-                        "height": 59
+                        "height": 65
                     },
                     {
                         "key": "editor",
@@ -29,7 +67,7 @@
                     }
                 ],
                 "visible": true,
-                "width": 780
+                "width": 1029
             },
             {
                 "key": "sideBar",
@@ -38,32 +76,17 @@
         ],
         "visible": true
     },
+    "autoUpdateEnabled": false,
+    "clipperServer.autoStart": false,
+    "sync.interval": 43200,
     "noteVisiblePanes": [
         "editor"
     ],
-    "editor.codeView": true,
-    "spellChecker.enabled": true,
-    "timeFormat": "h:mm A",
-    "theme": 2,
-    "dateFormat": "MM/DD/YYYY",
-    "uncompletedTodosOnTop": false,
-    "showCompletedTodos": false,
-    "notes.sortOrder.field": "order",
-    "style.editor.fontSize": 16,
-    "style.editor.fontFamily": "montserrat",
-    "layoutButtonSequence": 0,
     "editor.keyboardMode": "vim",
-    "clipperServer.autoStart": false,
-    "sync.interval": 43200,
-    "autoUpdateEnabled": false,
-    "style.editor.contentMaxWidth": 0,
-    "showNoteCounts": false,
-    "notes.sortOrder.reverse": true,
-    "sync.target": 7,
-    "style.editor.monospaceFontFamily": "cascadia mono",
-    "notes.sortOrder.buttonsVisible": false,
-    "markdown.plugin.sub": true,
-    "markdown.plugin.sup": true,
-    "markdown.plugin.abbr": true,
-    "markdown.plugin.insert": true
+    "editor.spellcheckBeta": false,
+    "editor.legacyMarkdown": true,
+    "spellChecker.language": "en-US",
+    "spellChecker.languages": [
+        "en-US"
+    ]
 }
