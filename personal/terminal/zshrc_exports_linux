@@ -1,0 +1,5 @@
+# This file contains all of the environment variables that I want to have by default 
+
+export SHELL=/bin/zsh
+export EDITOR='vim'
+
