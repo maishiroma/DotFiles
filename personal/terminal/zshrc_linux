@@ -109,9 +109,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias hg="history | grep"
+alias kubectl="minikube kubectl --"
 
 # Functions
 # Allows one to look and search for specific keywords passed into grep
 function sgrep() { grep -Hurn "$@" .; }
+
+# Shortcut to switch python venvs fast
+function pyvenv() {
+    source ~/.python_venvs/$1/bin/activate
+}
 
 # Start up commands
