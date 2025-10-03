@@ -2,8 +2,8 @@
 ; Note that this is for using an Apple Keyboard for Windows
 
 ; https://superuser.com/questions/651706/map-fn-home-to-screen-brightness-using-autohotkey
-^F1::Run("C:\Users\MatthewShiroma\bin\nircmd-x64\nircmd.exe changebrightness -10")
-^F2::Run("C:\Users\MatthewShiroma\bin\nircmd-x64\nircmd.exe changebrightness +10")
+^F1::Run("C:\Users\MatthewShiroma\CLI_Tools\nircmd-x64\nircmd.exe changebrightness -10")
+^F2::Run("C:\Users\MatthewShiroma\CLI_Tools\nircmd-x64\nircmd.exe changebrightness +10")
 
 ; https://www.itcentralpoint.com/how-to-have-apple-wireless-keyboard-volume-keys-and-others-work-in-windows-10
 ^F10::Send("{Volume_Mute}")
