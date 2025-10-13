@@ -1,6 +1,5 @@
 {
     "editor.fontSize": 14,
-    "editor.fontFamily": "Fira Code",
     "editor.wordWrap": "on",
     "workbench.statusBar.visible": true,
     "editor.minimap.enabled": false,
@@ -10,9 +9,46 @@
     "editor.cursorBlinking": "smooth",
     "terminal.integrated.cursorBlinking": true,
     "window.zoomLevel": 0,
+    "terminal.integrated.defaultProfile.windows": "Cmder Powershell",
+    "terminal.integrated.profiles.windows": {
+        "Cmder": {
+            "name": "Cmder",
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [
+                "/K",
+                "${env:cmder_root}\\vendor\\bin\\vscode_init.cmd"
+            ],
+            "icon": "terminal-cmd",
+            "color": "terminal.ansiGreen"
+        },
+        "Cmder PowerShell": {
+            "name": "PowerShell",
+            "source": "PowerShell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-NoLogo",
+                "-NoProfile",
+                "-NoExit",
+                "-Command",
+                "Invoke-Expression '. ''${env:cmder_root}\\vendor\\profile.ps1'''"
+            ],
+            "icon": "terminal-powershell",
+            "color": "terminal.ansiGreen"
+        },
+    },
     "terminal.integrated.macOptionClickForcesSelection": true,
     "terminal.integrated.fontSize": 14,
-    "vim.vimrc.enable": true,
+    "runOnSave.commands": [
+        {
+            "match": ".*\\.tf",
+            "command": " terraform fmt -no-color ${file}",
+        },
+    ],
+    "runOnSave.defaultRunIn": "terminal",
     "explorer.confirmDragAndDrop": false,
     "workbench.iconTheme": "city-lights-icons-vsc-light",
     "terminal.explorerKind": "external",
@@ -21,91 +57,16 @@
     "markdown.preview.scrollPreviewWithEditor": false,
     "markdown.preview.scrollEditorWithPreview": false,
     "extensions.ignoreRecommendations": true,
-    "workbench.colorTheme": "Abyss",
-    "markdownlint.config": {
-        "heading-style": {
-            "style": "atx"
-        },
-        "ul-style": {
-            "style": "dash"
-        },
-        "ul-start-left": true,
-        "ul-indent": {
-            "indent": 4,
-        },
-        "no-hard-tabs": {
-            "code_blocks": false
-        },
-        "no-multiple-blanks": {
-            "maximum": 1
-        },
-        "blanks-around-headers": {
-            "lines_above": 1,
-            "lines_below": 0
-        },
-        "no-inline-html": {
-            "allowed_elements": [
-                "details",
-                "summary",
-                "/details",
-                "/summary",
-            ]
-        },
-        "single-trailing-newline": false,
-        "no-duplicate-header": false,
-        "blanks-around-lists": false
-    },
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDelete": false,
-    "terminal.integrated.fontFamily": "Fira Code",
-    "runOnSave.commands": [
-        {
-            "match": ".*\\.tf",
-            "command": "terraform fmt -no-color ${file}",
-            "runIn": "backend",
-            "runningStatusMessage": "linting ${fileBasename}...",
-            "finishStatusMessage": "${fileBasename} linted successfully!"
-        },
-        {
-            "match": ".*\\.py$",
-            "command": "isort ${file} && echo && black ${file} && echo && pylint --exit-zero ${file}",
-            "runIn": "terminal",
-            "forcePathSeparator": "/"
-        },
-        {
-            "match": ".*\\.md$",
-            "command": "mdformat ${file}",
-            "runIn": "terminal",
-            "forcePathSeparator": "/"
-        },
-        {
-            "match": ".*\\.hcl",
-            "command": "packer fmt ${file}",
-            "runIn": "backend",
-            "runningStatusMessage": "linting ${fileBasename}...",
-            "finishStatusMessage": "${fileBasename} linted successfully!"
-        }
-    ],
-    "terminal.integrated.profiles.windows": {
-        "GitBash": {
-            "path": [
-                "C:\\Users\\matthew.shiroma\\AppData\\Local\\Programs\\Git\\bin\\bash.exe"
-            ],
-            "icon": "terminal-bash"
-        }
-    },
-    "terminal.integrated.defaultProfile.windows": "Git Bash",
     "files.eol": "\n",
     "terminal.integrated.allowChords": false,
     "terminal.integrated.drawBoldTextInBrightColors": false,
     "vim.useCtrlKeys": false,
     "vim.overrideCopy": false,
-    "cSpell.userWords": [
-        "approperiate"
-    ],
     "editor.renderWhitespace": "all",
     "editor.codeActionsOnSave": {
-        "source.fixAll.shellcheck": true
+        "source.fixAll.markdownlint": "always",
     },
     "git.openRepositoryInParentFolders": "always",
     "editor.indentSize": "tabSize",
@@ -113,8 +74,9 @@
     "[dockercompose]": {
         "editor.tabSize": 4
     },
-    "python.terminal.activateEnvInCurrentTerminal": true,
-    "python.envFile": "/home/mattyshiro14/.python_venvs",
-    "python.linting.lintOnSave": false,
-    "python.linting.enabled": false,
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false,
+    "chat.commandCenter.enabled": false,
+    "workbench.navigationControl.enabled": false,
+    "workbench.colorTheme": "Tokyo Night",
 }
