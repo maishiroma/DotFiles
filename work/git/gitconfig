@@ -32,3 +32,5 @@
 [alias]
     # Cleanup all local branches that are merged to master or main
     cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|main' | xargs -n 1 -r git branch -d && git fetch origin --prune"
+[safe]
+	directory = %(prefix)///wsl.localhost/Ubuntu/home/mattyshiro14/Projects/AWS_Infra
