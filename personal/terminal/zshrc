@@ -122,6 +122,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux="TERM=screen-256color-bce tmux"
 alias hg="history | grep"
+alias brave1='open -a "Brave Browser.app" --args --profile-directory="Default"'
+alias brave2='open -a "Brave Browser.app" --args --profile-directory="Profile 2"'
 
 # Functions
 # Allows one to look and search for specific keywords passed into grep
