@@ -6,19 +6,19 @@
 export AWS_PAGER=""
 
 # CLI Tools/Binaries Path
-export PATH="/home/mattyshiro14/CLI_Tools/bin_symlinks:${PATH}"
+export PATH="/home/mattyshiro/CLI_Tools/bin_symlinks:${PATH}"
 
 # Local Bin Path
-export PATH="/home/mattyshiro14/.local/bin:${PATH}"
+export PATH="/home/mattyshiro/.local/bin:${PATH}"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/mattyshiro14/.oh-my-zsh"
+export ZSH="/home/mattyshiro/.oh-my-zsh"
 
 # Path to Poetry installation
 export PATH="$HOME/.poetry/bin:$PATH"
 
 # Path to download and cache Terraform Providers
-export TF_PLUGIN_CACHE_DIR="/home/mattyshiro14/.terraform.d/plugins"
+export TF_PLUGIN_CACHE_DIR="/home/mattyshiro/.terraform.d/plugins"
 
 # Needed for see alias to work
 export BROWSER='/mnt/c/Windows/explorer.exe'
@@ -124,7 +124,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # To remove an alias: unalias ...
 alias tmux="TERM=screen-256color-bce tmux"
-alias 2dot="cd /home/mattyshiro14/GitHub/DotFiles"
+alias 2dot="cd /home/mattyshiro/GitHub/DotFiles"
 alias hgrep="history | grep"
 alias clearls="clear && ls"
 alias icdiff="icdiff --highlight --line-numbers"
@@ -222,7 +222,7 @@ function pvc() {
 # Shortcut to assume a IAM role on the CLI
 # Requires the role ARN to be passed in
 function awsrolestart() {
-    result=$(aws sts assume-role --role-arn $1 --role-session-name "AWSCLI-RoleAssume-mattyshiro14")
+    result=$(aws sts assume-role --role-arn $1 --role-session-name "AWSCLI-RoleAssume-mattyshiro")
     export AWS_ACCESS_KEY_ID=$(echo $result | jq -r ".Credentials.AccessKeyId")
     export AWS_SECRET_ACCESS_KEY=$(echo $result | jq -r ".Credentials.SecretAccessKey")
     export AWS_SESSION_TOKEN=$(echo $result | jq -r ".Credentials.SessionToken")
@@ -256,6 +256,7 @@ if [ ! -z "${TERM_PROGRAM}" ]; then
     fi
 else
     # If we are running in a standard terminal
+    cd ~
     tmux new -A -s work > /dev/null 2>&1
 fi
 

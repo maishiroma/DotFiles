@@ -21,6 +21,17 @@ Set-PSReadlineOption -Color @{
     "Comment" = [ConsoleColor]::DarkCyan
 }
 
+# Prevent commands with spaces in front to record in history 
+# https://superuser.com/a/1767011
+Set-PSReadLineOption -AddToHistoryHandler {
+    param($command)
+    if ($command -like ' *') {
+        return $false
+    }
+    return $true
+} 
+
+
 # Dracula Prompt Configuration
 Import-Module posh-git
 $GitPromptSettings.DefaultPromptPrefix.Text = "$([char]0x2192) " # arrow unicode symbol
@@ -40,7 +51,6 @@ $GitPromptSettings.BeforeStatus.ForegroundColor = [ConsoleColor]::Blue
 $GitPromptSettings.BranchColor.ForegroundColor = [ConsoleColor]::Blue
 $GitPromptSettings.AfterStatus.ForegroundColor = [ConsoleColor]::Blue
 
-
 # Functions
 function GDB() {
     # Gets the default branch in a repo
@@ -51,7 +61,18 @@ function GDB() {
 
 # New Aliases
 Set-Alias -Name ".." -Value "cd.."
+Set-Alias -name "python" -Value "py"
+Set-Alias -name "sudo" -Value "gsudo"
+Set-Alias -name "code" -Value "codium"
+
+# Due to alias not getting properly validated in Cmder, we need to control which ones we want to use here
+Set-Alias -Name "terraform" -Value "C:\Users\Matthew.Shiroma\.bin\terraform_1_13_4.exe"
+Set-Alias -Name "packer" -Value "C:\Users\Matthew.Shiroma\.bin\packer_1_14_2.exe"
+
+# Sets up Powershell to use UTF-8 Encoding
+$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
 # Adding specific paths to PATH (these are NOT permenant; these are specific to the specific shell)
 # This is done because we mostly use Git Bash; this path is already added to it
-$env:Path += ";C:\Users\matthew.shiroma\bin"
+$env:Path += ";C:\Users\Matthew.Shiroma\.bin"
+
