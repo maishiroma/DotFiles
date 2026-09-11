@@ -5,17 +5,8 @@
 # AWS Global Vars
 export AWS_PAGER=""
 
-# CLI Tools/Binaries Path
-export PATH="/home/mattyshiro/CLI_Tools/bin_symlinks:${PATH}"
-
-# Local Bin Path
-export PATH="/home/mattyshiro/.local/bin:${PATH}"
-
 # Path to your oh-my-zsh installation.
 export ZSH="/home/mattyshiro/.oh-my-zsh"
-
-# Path to Poetry installation
-export PATH="$HOME/.poetry/bin:$PATH"
 
 # Path to download and cache Terraform Providers
 export TF_PLUGIN_CACHE_DIR="/home/mattyshiro/.terraform.d/plugins"
@@ -96,6 +87,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export PATH="/mnt/c/Users/Matthew.Shiroma/.bin:$PATH"
+export PATH="/home/mattyshiro/.local/bin:$PATH"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -131,6 +125,8 @@ alias icdiff="icdiff --highlight --line-numbers"
 alias pbcopy="/mnt/c/Windows/system32/clip.exe"
 alias see="/mnt/c/Windows/explorer.exe"
 alias python="python3"
+alias code="/mnt/c/Users/Matthew.Shiroma/AppData/Local/Programs/VSCodium/VSCodium.exe"
+alias codium="/mnt/c/Users/Matthew.Shiroma/AppData/Local/Programs/VSCodium/VSCodium.exe"
 
 alias gcm='git checkout $(git_default_branch)'
 alias gpm='git pull --rebase origin $(git_default_branch)'
@@ -260,6 +256,7 @@ else
     tmux new -A -s work > /dev/null 2>&1
 fi
 
+fpath=($fpath ~/.zsh/completion)
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
